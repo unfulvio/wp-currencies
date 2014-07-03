@@ -1,0 +1,170 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Currencies v1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-07-03 08:04:06+0000\n"
+"Last-Translator: nekojira <fulvio@nekojira.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#. translators: plugin header field 'Name'
+#: admin/class-wp-currencies-admin.php:83
+#: wp-currencies.php:0
+#@ wp-currencies
+msgid "WP Currencies"
+msgstr ""
+
+#: admin/class-wp-currencies-admin.php:84
+#: admin/class-wp-currencies-admin.php:111
+#@ wp-currencies
+msgid "Currencies"
+msgstr ""
+
+#: admin/views/admin.php:13
+#, php-format
+#@ wp-currencies
+msgctxt "openexchangerates.org link"
+msgid "WP Currencies pulls currency data from %1s and imports it into the WordPress database. The exchange rates will be updated on a frequency that you can specify below."
+msgstr ""
+
+#: admin/views/admin.php:15
+#@ wp-currencies
+msgid "Please refer to plugin documentation for functions usage to help you creating with WordPress and WP Currencies."
+msgstr ""
+
+#: admin/views/admin.php:23
+#@ wp-currencies
+msgid "Open Exchange Rates API key:"
+msgstr ""
+
+#: admin/views/admin.php:29
+#, php-format
+#@ wp-currencies
+msgctxt "URL where to get the API key"
+msgid "Get yours at: %1s"
+msgstr ""
+
+#: admin/views/admin.php:37
+#@ wp-currencies
+msgid "Rates update frequency in days"
+msgstr ""
+
+#: admin/views/admin.php:42
+#@ wp-currencies
+msgid "Specify the frequency in days when to update currencies exchange rates"
+msgstr ""
+
+#: admin/views/admin.php:44
+#@ wp-currencies
+msgid "if set to 0, will attempt to update the rates hourly"
+msgstr ""
+
+#: admin/views/admin.php:58
+#@ wp-currencies
+msgid "Support"
+msgstr ""
+
+#: admin/views/admin.php:60
+#@ wp-currencies
+msgid "This plugin is free to use for any personal or commercial project and no warranty or support is guaranteed or provided."
+msgstr ""
+
+#: admin/views/admin.php:62
+#, php-format
+#@ wp-currencies
+msgctxt "Github link"
+msgid "You can contribute to WP Currencies on %1s by reporting bugs or issuing pull requests."
+msgstr ""
+
+#: admin/views/admin.php:64
+#@ wp-currencies
+msgid "If this plugin was helpful to any of your projects by any means, a donation with Paypal&reg; will be appreciated."
+msgstr ""
+
+#: public/class-wp-currencies.php:295
+#@ wp-currencies
+msgid "No valid openexchangerates.org API key found, go to WP Currencies settings page to register one"
+msgstr ""
+
+#: public/class-wp-currencies.php:349
+#@ wp-currencies
+msgid "An error occurred while updating exchange rates"
+msgstr ""
+
+#: public/functions.php:30
+#@ wp-currencies
+msgid "Currency code not found"
+msgstr ""
+
+#: public/functions.php:35
+#@ wp-currencies
+msgid "Currency code should be a string of exactly three characters"
+msgstr ""
+
+#: public/functions.php:97
+#@ wp-currencies
+msgid "Currency codes should be a string of exactly three characters"
+msgstr ""
+
+#: public/functions.php:100
+#@ wp-currencies
+msgid "Amount to convert must be a number"
+msgstr ""
+
+#: public/functions.php:105
+#@ wp-currencies
+msgid "Currency code to convert from not found"
+msgstr ""
+
+#: public/functions.php:110
+#@ wp-currencies
+msgid "Currency code to convert to not found"
+msgstr ""
+
+#: public/functions.php:189
+#@ wp-currencies
+msgid "You need to pass a valid currency code for argument and it must be a string of three characters long"
+msgstr ""
+
+#: public/functions.php:197
+#@ wp-currencies
+msgid "The specified currency could not be found"
+msgstr "The specified currency could not be found"
+
+#. translators: plugin header field 'PluginURI'
+#: wp-currencies.php:0
+#@ wp-currencies
+msgid "https://github.com/nekojira/wp-currencies"
+msgstr "https://github.com/nekojira/wp-currencies"
+
+#. translators: plugin header field 'Description'
+#: wp-currencies.php:0
+#@ wp-currencies
+msgid "Bring currency data and updated currency exchange rates into WordPress"
+msgstr "Bring currency data and updated currency exchange rates into WordPress"
+
+#. translators: plugin header field 'Author'
+#: wp-currencies.php:0
+#@ wp-currencies
+msgid "nekojira"
+msgstr "nekojira"
+
+#. translators: plugin header field 'AuthorURI'
+#: wp-currencies.php:0
+#@ wp-currencies
+msgid "https://github.com/nekojira/"
+msgstr "https://github.com/nekojira/"
+
