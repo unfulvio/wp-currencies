@@ -1,3 +1,6 @@
+## 1.1.1 (04 Jul 2014)
+* Bugfix (accidentally deactivated admin class in 1.1.0)
+
 ## 1.1.0 (04 Jul 2014)
 * Introduced `format_currency()` function
 * Added endpoints for JSON REST API (WP API)

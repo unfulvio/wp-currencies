@@ -55,5 +55,11 @@ if ( class_exists( 'acf_field' ) ) {
 add_shortcode( 'currency_convert', array( 'WP_Currencies', 'currency_conversion_shortcode' ) );
 add_shortcode( 'currency_symbol', array( 'WP_Currencies', 'currency_symbol_shortcode' ) );
 
+// Admin settings
+if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-wp-currencies-admin.php' );
+	add_action( 'plugins_loaded', array( 'WP_Currencies_Admin', 'get_instance' ) );
+}
+
 // Functions
 require_once plugin_dir_path( __FILE__ ) . 'public/functions.php';
