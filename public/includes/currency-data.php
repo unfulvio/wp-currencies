@@ -15,7 +15,31 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 			case 'AUD' :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
-					'symbol'			=> '&#36;A',
+					'symbol'			=> 'A&#36;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Brunei Dollar
+			case 'BND' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'B&#36;',
+					'position' 			=> 'before',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Canadian Dollar
+			case 'CAD' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'C&#36;',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
@@ -28,18 +52,6 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#20803;',
-					'position' 			=> 'after',
-					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.',
-				);
-				break;
-
-			// Canadian Dollar
-			case 'CAD' :
-				$data[$currency_code] = array(
-					'name' 				=> $currency_name,
-					'symbol'			=> '&#36;C',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
@@ -131,6 +143,30 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				);
 				break;
 
+			// Singapore Dollar
+			case 'SGD' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'S&#36;',
+					'position' 			=> 'before',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Thai Baht
+			case 'THB' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> '&#3647;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
 			// US Dollar
 			case 'USD' :
 				$data[$currency_code] = array(
@@ -148,18 +184,6 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#8363;',
-					'position' 			=> 'after',
-					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.',
-				);
-				break;
-
-			// Thai Baht
-			case 'THB' :
-				$data[$currency_code] = array(
-					'name' 				=> $currency_name,
-					'symbol'			=> '&#3647;',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',

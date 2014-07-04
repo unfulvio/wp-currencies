@@ -4,11 +4,12 @@ Donate link: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_flow&SESSION=SUJDJhsq
 Tags: currency, currencies
 Requires at least: 3.6.0
 Tested up to: 3.9.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Bring currency data and updated currency exchange rates into WordPress.
+
 
 == Description ==
 
@@ -55,6 +56,7 @@ You may as well specify an update frequency of your currency exchange rates. Def
 
 Please note that the currencies will be first pushed to your WordPress database at the first usage of any of the plugin functions after having entered a valid API key. You may need to refresh your application/page once.
 
+
 == Functions ==
 
 `get_exchange_rates( $currency_code = 'USD' )`
@@ -82,15 +84,35 @@ Outputs a json object with currencies codes and currency data such as currency n
 Given a specified currency code, will return a PHP array with the currency name in English language, currency symbol as html entity or currency code, currency symbol position (before or after), number of decimals, decimals and thousands separators.
 Example: `get_currency( 'CHF' )` will return array data for Swiss Franc.
 
+`format_currency( $amount, $currency_code, $symbol )`
+Formats a given amount (integer or float) using specified currency data and returns the number with the currency symbol. For example: `format_currency( 1025.980, 'USD' )` will return `1,025.98 $`. Pass `$symbol` to false if you don't want the currency symbol to appear in the output.
+
+
+== API ==
+
+If you use WP API, WP Currencies will automatically register the following endpoints:
+
+`/currencies/`
+will respond with currencies data (currency code, currency name, symbol, separators, etc).
+
+`/currencies/rates/`
+will respond with currency exchange rates for US Dollar in each currency.
+
+`/currencies/rates?currency={currency_code}`
+will respond with currency exchange rates with given base currency code.
+(For example: `/currencies/rates/eur` will output exchange rates for the Euro.)
+
+
 == Shortcodes ==
 
 The plugin also provides two WordPress shortcodes:
 
-`[currency_convert amount="1" from="USD" in="EUR" round="2"]`
+`[currency_convert amount="{number}" from="{currency_code1}" in="{currency_code2}" round="2"]`
 Will print the converted amount of one currency into another, according to values specified. You can use a float too as amount to convert. `round` is optional, defaults to 2 (rounds to two decimals). For example: `[currency_convert amount='260' from="MYR" to="THB" round="0"]` will print a integer number resulting from the conversion of 260 Malaysian Ringgit to Thai Baht.
 
-`[currency_symbol currency="USD"]`
+`[currency_symbol currency="{currency_code"]`
 Will print the currency symbol according to currency code specified. For example: `[currency_symbol currency="JPY"]` (Japanese Yen) will print `&#165;` which will render as `¥`.
+
 
 == Frequently Asked Questions ==
 
@@ -122,6 +144,11 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 
 == Changelog ==
+
+= 1.1.0 =
+* Introduced `format_currency()` function
+* Added endpoints for JSON REST API (WP API)
+* Added a "Currency field" for Advanced Custom Fields 4.x
 
 = 1.0.0 =
 * First release

@@ -24,7 +24,7 @@ class WP_Currencies {
 	 *
 	 * @var		string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Plugin unique identifier, also used for textdomain
@@ -104,6 +104,7 @@ class WP_Currencies {
 	 * @return	string	the plugin slug variable
 	 */
 	public function get_plugin_slug() {
+
 		return $this->plugin_slug;
 	}
 
@@ -515,22 +516,22 @@ class WP_Currencies {
 	 *
 	 * @return 	string	the resulting converted amount
 	 */
-	public function currency_conversion_shortcode( $atts ) {
+	public static function currency_conversion_shortcode( $atts ) {
 
 		$args = shortcode_atts( array(
-			'amount'=> 1,
-			'from' 	=> 'USD',
-			'in' 	=> 'EUR',
+			'amount'=> '',
+			'from' 	=> '',
+			'in' 	=> '',
 			'round' => 2,
 		), $atts );
 
 		// convert currency
-		$conversion = convert_currency( $args['amount'], $args['from'], $args['in'] );
+		$conversion = convert_currency( floatval( $args['amount'] ), strtoupper( $args['from'] ), strtoupper( $args['in'] ) );
 		// round result
-		$rounding = (int) $args['round'] >= 0 ? $args['round'] : 2;
+		$rounding = intval( $args['round'] ) >= 0 ? intval( $args['round'] ) : 2;
 		$converted_amount = round( $conversion, $rounding );
 
-		return '<span class="converted-currency">' . $converted_amount . '</span>';
+		return '<span class="currency converted-currency">' . $converted_amount . '</span>';
 	}
 
 	/**
@@ -542,16 +543,17 @@ class WP_Currencies {
 	 *
 	 * @return 	string	html entity of the symbol of the specified currency code
 	 */
-	public function currency_symbol_shortcode( $atts ) {
+	public static function currency_symbol_shortcode( $atts ) {
 
 		$args = shortcode_atts( array(
-			'currency' 	=> 'USD',
+			'currency' 	=> '',
 		), $atts );
 
 		// get currency data
-		$currency_data = get_currency( $args['currency'] );
+		$currency_data = get_currency( strtoupper( $args['currency'] ) );
 		$symbol = $currency_data['symbol'];
 
-		return '<span class"currency-symbol">' . $symbol . '</span>';
+		return '<span class"currency currency-symbol">' . $symbol . '</span>';
 	}
+
 }

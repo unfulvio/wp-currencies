@@ -1,3 +1,7 @@
-## 1.0.0 (03 Jul 2014)
+## 1.1.0 (04 Jul 2014)
+* Introduced `format_currency()` function
+* Added endpoints for JSON REST API (WP API)
+* Added a "Currency field" for Advanced Custom Fields 4.x
 
+## 1.0.0 (03 Jul 2014)
 * Initial public release

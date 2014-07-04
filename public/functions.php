@@ -27,24 +27,30 @@ function get_exchange_rates( $currency = 'USD', $update = true ) {
 	$rates = $currencies->get_rates( $update );
 
 	// rearrange data with different base currency
-	if ( $currency != 'USD' ) :
-
-		if ( ! array_key_exists( $currency, $rates ) ) {
-			trigger_error( __( 'Currency code not found', $currencies->get_plugin_slug() ), E_USER_WARNING );
-			die;
-		}
+	if ( is_array( $rates ) && $currency != 'USD' ) :
 
 		if ( ! is_string( $currency ) OR strlen( $currency) != 3 ) {
 			trigger_error( __( 'Currency code should be a string of exactly three characters', $currencies->get_plugin_slug() ), E_USER_WARNING );
 			die;
 		}
 
+		$currency = strtoupper( $currency );
+
+		if ( ! array_key_exists( $currency, $rates ) ) {
+			trigger_error( __( 'Currency code not found', $currencies->get_plugin_slug() ), E_USER_WARNING );
+			die;
+		}
+
 		$new_rates = array();
-		foreach( $rates as $rate => $currency_code ) :
+		$base_rate = $rates[$currency];
 
-			$new_rates[$currency_code] = 1 * (float) $rate[$currency_code] / (float) $rate[$currency];
+		while ( $array_key = current( $rates ) ) :
 
-		endforeach;
+			$key = key( $rates );
+			$new_rates[$key] = 1 * $rates[$key] / $base_rate;
+			next( $rates );
+
+		endwhile;
 
 		$rates = $new_rates;
 
@@ -52,7 +58,6 @@ function get_exchange_rates( $currency = 'USD', $update = true ) {
 
 	return $rates;
 }
-
 
 /**
  * Get a json object with currency exchange rates
@@ -67,12 +72,12 @@ function get_exchange_rates( $currency = 'USD', $update = true ) {
  */
 function get_exchange_rates_json( $currency = 'USD', $update = true ) {
 
-	$rates = get_exchange_rates( $currency, $update );
+	$rates = get_exchange_rates( strtoupper( $currency ), $update );
 	wp_send_json( $rates );
 
 }
-add_action( 'wp_ajax_nopriv_get_exchange_rates_json', 'get_exchange_rates_json' );
-add_action( 'wp_ajax_get_exchange_rates_json', 'get_exchange_rates_json' );
+add_action( 'wp_ajax_nopriv_get_exchange_rates', 'get_exchange_rates_json' );
+add_action( 'wp_ajax_get_exchange_rates', 'get_exchange_rates_json' );
 
 
 /**
@@ -102,6 +107,9 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
 		if ( is_nan( $amount ) ) {
 			trigger_error( __( 'Amount to convert must be a number', $currencies->get_plugin_slug() ), E_USER_NOTICE );
 		}
+
+		$from = strtoupper( $from );
+		$in = strtoupper( $in );
 
 		if ( ! array_key_exists( $from, $rates ) ) {
 			trigger_error( __( 'Currency code to convert from not found', $currencies->get_plugin_slug() ), E_USER_WARNING );
@@ -133,6 +141,9 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
  * @return float|int
  */
 function get_exchange_rate( $currency, $other_currency ) {
+
+	$currency = strtoupper( $currency );
+	$other_currency = strtoupper( $other_currency );
 
 	$rate = $currency == $other_currency ? 1 : convert_currency( 1, $currency, $other_currency );
 
@@ -171,8 +182,8 @@ function get_currencies_json() {
 	wp_send_json( $currencies );
 
 }
-add_action( 'wp_ajax_nopriv_get_currencies_json', 'get_currencies_json' );
-add_action( 'wp_ajax_get_currencies_json', 'get_currencies_json' );
+add_action( 'wp_ajax_nopriv_get_currencies', 'get_currencies_json' );
+add_action( 'wp_ajax_get_currencies', 'get_currencies_json' );
 
 
 /**
@@ -187,20 +198,61 @@ add_action( 'wp_ajax_get_currencies_json', 'get_currencies_json' );
  */
 function get_currency( $currency_code = 'USD' ) {
 
+	$currencies = WP_Currencies::get_instance();
+
 	if ( ! is_string( $currency_code ) OR strlen( $currency_code ) != 3 ) {
 		trigger_error( __( 'You need to pass a valid currency code for argument and it must be a string of three characters long', $currencies->get_plugin_slug() ), E_USER_WARNING );
 		die;
 	}
 
-	$currencies = WP_Currencies::get_instance();
 	$currency_data = get_currencies();
 
-	if ( ! array_key_exists( $currency_code, $currency_data ) ) {
+	if ( ! array_key_exists( strtoupper( $currency_code ), $currency_data ) ) {
 		trigger_error( __( 'The specified currency could not be found', $currencies->get_plugin_slug() ), E_USER_WARNING );
 		die;
 	}
 
-	$currency = (array) $currency_data[$currency_code];
+	$currency = (array) $currency_data[strtoupper( $currency_code )];
 
 	return $currency;
+}
+
+
+/**
+ * Format currency
+ * Formats an amount in one specified currency according to currency data
+ *
+ * @param 	int|float	$amount				the amount to format
+ * @param	string 		$currency_code		the currency
+ * @param	bool		$currency_symbol	true outputs the currency symbol, false does not (default true)
+ *
+ * @since 1.1.0
+ *
+ * @return	string	returns a string with formatted currency number and currency symbol
+ */
+function format_currency( $amount, $currency_code, $currency_symbol = true ) {
+
+	if ( ! $amount || ! $currency_code OR is_nan( $amount ) )
+		return '';
+
+	$currency = get_currency( strtoupper( $currency_code ) );
+
+	if ( ! $currency ) {
+
+		$symbol = $currency_symbol == true ? strtoupper( $currency_code ) : '';
+		$result = $amount . ' ' . $symbol;
+
+	} else {
+
+		$formatted = number_format( $amount, $currency['decimals'], $currency['decimals_sep'], $currency['thousands_sep'] );
+
+		if ( $currency_symbol == false ) {
+			$result = $formatted;
+		} else {
+			$result = $currency['position'] == 'before' ? $currency['symbol'] . ' ' . $formatted : $formatted . ' ' . $currency['symbol'];
+		}
+
+	}
+
+	return $result;
 }

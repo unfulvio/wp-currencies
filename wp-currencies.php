@@ -15,7 +15,7 @@
  * Plugin Name:       WP Currencies
  * Plugin URI:        https://github.com/nekojira/wp-currencies
  * Description:       Bring currency data and updated currency exchange rates into WordPress.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            nekojira
  * Author URI:        https://github.com/nekojira/
  * Text Domain:       wp-currencies
@@ -29,22 +29,31 @@
 if ( ! defined( 'WPINC' ) )
 	die;
 
+// Code to execute upon plugin activation and deactivation
 register_activation_hook( __FILE__, array( 'WP_Currencies', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'WP_Currencies', 'deactivate' ) );
 
-// Main class
-require_once( plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies.php' );
+// WP Currencies main class
+require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies.php';
 add_action( 'plugins_loaded', array( 'WP_Currencies', 'get_instance' ) );
+
+// WP Currencies API class (extends JSON REST API if available)
+require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-api.php';
+add_action( 'plugins_loaded', array( 'WP_Currencies_API', 'get_instance' ) );
+function wp_currencies_api_init() {
+	$currencies_api = new WP_Currencies_API;
+	add_filter( 'json_endpoints', array( $currencies_api, 'register_routes' ) );
+}
+add_action( 'wp_json_server_before_serve', 'wp_currencies_api_init' );
+
+// Advanced Custom Fields v4 Currency Field
+if ( class_exists( 'acf_field' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-acf-v4.php';
+}
 
 // Register shortcodes
 add_shortcode( 'currency_convert', array( 'WP_Currencies', 'currency_conversion_shortcode' ) );
 add_shortcode( 'currency_symbol', array( 'WP_Currencies', 'currency_symbol_shortcode' ) );
-
-// Admin settings
-if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-wp-currencies-admin.php' );
-	add_action( 'plugins_loaded', array( 'WP_Currencies_Admin', 'get_instance' ) );
-}
 
 // Functions
 require_once plugin_dir_path( __FILE__ ) . 'public/functions.php';
