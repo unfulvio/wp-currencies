@@ -15,7 +15,7 @@
  * Plugin Name:       WP Currencies
  * Plugin URI:        https://github.com/nekojira/wp-currencies
  * Description:       Bring currency data and updated currency exchange rates into WordPress.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            nekojira
  * Author URI:        https://github.com/nekojira/
  * Text Domain:       wp-currencies
@@ -46,10 +46,14 @@ function wp_currencies_api_init() {
 }
 add_action( 'wp_json_server_before_serve', 'wp_currencies_api_init' );
 
-// Advanced Custom Fields v4 Currency Field
-if ( class_exists( 'acf_field' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-acf-v4.php';
-}
+// Advanced Custom Fields "Currency" Field (ACF v4.x+)
+add_action( 'acf/register_fields',
+	function() { require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-acf-v4.php'; }
+);
+// Advanced Custom Fields "Currency" Field (ACF v5.x+)
+add_action('acf/include_field_types',
+	function() { require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-acf-v5.php'; }
+);
 
 // Register shortcodes
 add_shortcode( 'currency_convert', array( 'WP_Currencies', 'currency_conversion_shortcode' ) );

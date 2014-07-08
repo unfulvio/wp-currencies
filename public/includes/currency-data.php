@@ -23,11 +23,36 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				);
 				break;
 
+			// Brazilian real
+			case 'BRL' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'R&#36;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '&nbsp;',
+					'decimals_sep'      => '.',
+				);
+				break;
+
 			// Brunei Dollar
 			case 'BND' :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> 'B&#36;',
+					'position' 			=> 'before',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Brunei Dollar
+			case 'BTC' :
+			case 'XBT' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> $currency_code,
 					'position' 			=> 'before',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
@@ -41,9 +66,21 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'name' 				=> $currency_name,
 					'symbol'			=> 'C&#36;',
 					'position' 			=> 'after',
-					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.',
+					'decimals' 			=> 3,
+					'thousands_sep'    	=> '&nbsp;',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Swiss Franc
+			case 'CHF' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'SFr.',
+					'position' 			=> 'after',
+					'decimals' 			=> 3,
+					'thousands_sep'    	=> '&nbsp;',
+					'decimals_sep'      => ',',
 				);
 				break;
 
@@ -51,11 +88,24 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 			case 'CNY' :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
-					'symbol'			=> '&#20803;',
-					'position' 			=> 'after',
+					'symbol'			=> '&#165',
+					'position' 			=> 'before',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
 					'decimals_sep'      => '.',
+				);
+				break;
+
+
+			// Danish krone
+			case 'DKK' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'kr.',
+					'position' 			=> 'after',
+					'decimals' 			=> 3,
+					'thousands_sep'    	=> '&nbsp;',
+					'decimals_sep'      => ',',
 				);
 				break;
 
@@ -89,18 +139,30 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#165;',
 					'position' 			=> 'after',
-					'decimals' 			=> 2,
+					'decimals' 			=> 0,
 					'thousands_sep'    	=> ',',
 					'decimals_sep'      => '.',
 				);
 				break;
 
 			// Laos Kip
-			case 'KIP' :
+			case 'LAK' :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#8365;',
 					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Hong Kong Dollar
+			case 'HKD' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'HK&#36;',
+					'position' 			=> 'before',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
 					'decimals_sep'      => '.',
@@ -112,6 +174,18 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#8377;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Burmese Kyat
+			case 'MMK' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'Ks',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
@@ -126,8 +200,80 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'symbol'			=> 'RM',
 					'position' 			=> 'before',
 					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Mexican Peso
+			case 'MXN' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'Mex#36;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '&nbsp;',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// New Zealand Dollar
+			case 'NZD' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'NZ&#36;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
 					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Norwegian krone
+			case 'NOK' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'kr',
+					'position' 			=> 'after',
+					'decimals' 			=> 3,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Polish złoty
+			case 'PLN' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'z&#322;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Philippine Peso
+			case 'PHP' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> '&#8369;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Romanian Leu
+			case 'RON' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'Lei',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
 				);
 				break;
 
@@ -138,6 +284,18 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'symbol'			=> '&#8381;',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Saudi Ryal
+			case 'SAR' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'SR',
+					'position' 			=> 'after',
+					'decimals' 			=> 3,
 					'thousands_sep'    	=> ',',
 					'decimals_sep'      => '.',
 				);
@@ -150,8 +308,20 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'symbol'			=> 'S&#36;',
 					'position' 			=> 'before',
 					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.',
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
+				);
+				break;
+
+			// Swedish krona
+			case 'SEK' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'kr',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
 				);
 				break;
 
@@ -160,6 +330,30 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 				$data[$currency_code] = array(
 					'name' 				=> $currency_name,
 					'symbol'			=> '&#3647;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Turkish Lira
+			case 'TRY' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> '&#8378;',
+					'position' 			=> 'after',
+					'decimals' 			=> 2,
+					'thousands_sep'    	=> ',',
+					'decimals_sep'      => '.',
+				);
+				break;
+
+			// Taiwan Dollar
+			case 'TWD' :
+				$data[$currency_code] = array(
+					'name' 				=> $currency_name,
+					'symbol'			=> 'NT&#36;',
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
 					'thousands_sep'    	=> ',',
@@ -210,8 +404,8 @@ if ( is_array( $currency_names ) && count( $currency_names ) > 100 ) :
 					'symbol'			=> $currency_code,
 					'position' 			=> 'after',
 					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.',
+					'thousands_sep'    	=> '.',
+					'decimals_sep'      => ',',
 				);
 				break;
 

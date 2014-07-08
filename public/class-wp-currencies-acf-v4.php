@@ -32,16 +32,18 @@ class WP_Currency_ACF_v4 extends acf_field {
 		// vars from WP Currencies
 		$version = WP_Currencies::VERSION;
 		$wp_currencies = WP_Currencies::get_instance();
+		// textdomain
 		$textdomain = $wp_currencies->get_plugin_slug();
-
-		// vars for ACF
+		// field name
 		$this->name = 'currency';
 		$this->label = __( "Currency", $textdomain );
+		// field type
 		$this->category = __( "Choice",'acf' );
+		// field default settings
 		$this->defaults = array(
-			'multiple' 		=>	0,
-			'allow_null' 	=>	0,
-			'default_value'	=>	'USD'
+			'multiple' 		=>	0,		// disallow for multiple selection
+			'allow_null' 	=>	0,		// disallow null choice
+			'default_value'	=>	'USD'	// set US Dollar as default currency
 		);
 
 		// do not delete!
@@ -71,13 +73,18 @@ class WP_Currency_ACF_v4 extends acf_field {
 
 	function create_options( $field ) {
 
+		// vars from WP Currencies
+		$wp_currencies = WP_Currencies::get_instance();
+		// textdomain
+		$textdomain = $wp_currencies->get_plugin_slug();
+
 		$key = $field['name'];
 
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
 				<label><?php _e("Default Value",'acf'); ?></label>
-				<p class="description"><?php _e("Enter each default value on a new line",'acf'); ?></p>
+				<p class="description"><?php _e("Choose a default value", $textdomain ); ?></p>
 			</td>
 			<td>
 				<?php
@@ -86,6 +93,7 @@ class WP_Currency_ACF_v4 extends acf_field {
 					'type'	=>	'currency',
 					'name'	=>	'fields['.$key.'][default_value]',
 					'value'	=>	$field['default_value'],
+					'allow_null' => 1,
 				));
 
 				?>
@@ -189,23 +197,6 @@ class WP_Currency_ACF_v4 extends acf_field {
 
 		echo '</select>';
 
-	}
-
-	/**
-	* Format value
-	* This filter is applied to the $value after it is loaded from the db and before it is passed to the create_field action
-	*
-	* @since	1.1.0
-	*
-	* @param	mixed	$value		the value which was loaded from the database
-	* @param	int		$post_id 	the $post_id from which the value was loaded
-	* @param	array	$field	 	the field array holding all the field options
-	*
-	* @return	mixed	$value	the modified value
-	*/
-
-	function format_value( $value, $post_id, $field ) {
-		return $value;
 	}
 
 

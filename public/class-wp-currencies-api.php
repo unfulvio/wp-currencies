@@ -27,7 +27,7 @@ class WP_Currencies_API {
 	protected static $instance = null;
 
 	/**
-	 * Initialize class
+	 * Initialize
 	 *
 	 * @since 1.1.0
 	 */
@@ -68,6 +68,9 @@ class WP_Currencies_API {
 			array( array( $this, 'api_get_currencies' ), WP_JSON_Server::READABLE ),
 		);
 		$routes['/currencies/rates'] = array(
+			array( array( $this, 'api_get_rates' ), WP_JSON_Server::READABLE ),
+		);
+		$routes['/currencies/rates?currency='] = array(
 			array( array( $this, 'api_get_rates' ), WP_JSON_Server::READABLE ),
 		);
 

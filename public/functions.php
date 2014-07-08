@@ -30,7 +30,7 @@ function get_exchange_rates( $currency = 'USD', $update = true ) {
 	if ( is_array( $rates ) && $currency != 'USD' ) :
 
 		if ( ! is_string( $currency ) OR strlen( $currency) != 3 ) {
-			trigger_error( __( 'Currency code should be a string of exactly three characters', $currencies->get_plugin_slug() ), E_USER_WARNING );
+			trigger_error( __( 'Currency code should be a string of exactly three characters matching a currency ISO code', $currencies->get_plugin_slug() ), E_USER_WARNING );
 			die;
 		}
 

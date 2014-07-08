@@ -317,23 +317,47 @@ class WP_Currencies {
 
 				if ( $action == 'update' ) {
 
-					$wpdb->update(
-						$table, array(
-							'currency_rate' => $rate_usd, 				// current rate to USD
-							'currency_data' => $currency_data, 			// currency data
-							'timestamp' 	=> current_time( 'mysql' ) 	// store a timestamp to compare later
-						),
-						array( 'currency_code' => $currency_code )
-					);
+					// the currency list has changed
+					if ( count ( $stored_rates) != count( $rates ) ) {
+
+						// empty tables first
+						$wpdb->delete(
+							$table, array(
+								'currency_code' => $currency_code,
+							)
+						);
+
+						// reinsert
+						$wpdb->insert(
+							$table, array(
+								'currency_code' => $currency_code,
+								'currency_rate' => $rate_usd,
+								'currency_data' => $currency_data,
+								'timestamp' 	=> current_time( 'mysql' )
+							)
+						);
+
+					} else {
+
+						$wpdb->update(
+							$table, array(
+								'currency_rate' => $rate_usd,
+								'currency_data' => $currency_data,
+								'timestamp' 	=> current_time( 'mysql' )
+							),
+							array( 'currency_code' => $currency_code )
+						);
+
+					}
 
 				} elseif ( $action == 'insert' ) {
 
 					$wpdb->insert(
 						$table, array(
-							'currency_code' => $currency_code, 			// currency code
-							'currency_rate' => $rate_usd, 				// current rate to USD
-							'currency_data' => $currency_data, 			// currency data
-							'timestamp' 	=> current_time( 'mysql' ) 	// store a timestamp to compare later
+							'currency_code' => $currency_code,
+							'currency_rate' => $rate_usd,
+							'currency_data' => $currency_data,
+							'timestamp' 	=> current_time( 'mysql' )
 						)
 					);
 
@@ -344,7 +368,6 @@ class WP_Currencies {
 		else :
 
 			trigger_error( __( 'An error occurred while updating exchange rates', $this->plugin_slug ), E_USER_NOTICE );
-			die;
 
 		endif;
 

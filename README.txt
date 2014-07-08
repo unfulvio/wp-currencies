@@ -145,6 +145,13 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 == Changelog ==
 
+= 1.1.3 =
+* Added field support for Advanced Custom Fields 5.x
+* More currency data
+
+= 1.1.1 =
+* Bugfix (accidentally deactivated admin class in 1.1.0)
+
 = 1.1.0 =
 * Introduced `format_currency()` function
 * Added endpoints for JSON REST API (WP API)
