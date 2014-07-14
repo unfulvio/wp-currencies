@@ -52,6 +52,7 @@ class WP_Currencies_API {
 		return self::$instance;
 	}
 
+
 	/**
 	 * Register JSON API routes
 	 * Provides two endpoints for the API `/currencies/` and `/currencies/rates/`

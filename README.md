@@ -1,5 +1,5 @@
 # WP Currencies
-
+---
 WP Currencies is a [WordPress](http://www.wordpress.org) plugin that imports and periodically updates a complete set of World currencies and their exchange rates from [openexchangerates.org](https://openexchangerates.org) to WordPress database for later retrieval and use.
 
 This plugin is intended for WordPress developers who want to access to currency data from within WordPress.
@@ -11,7 +11,7 @@ This plugin is intended for WordPress developers who want to access to currency 
 * Automatically updates currency data by set intervals
 * Provides a set of PHP functions to retrieve currency data and exchange rates or perform currency conversions with PHP or Ajax
 * Registers [JSON REST API](https://wordpress.org/plugins/json-rest-api/) endpoints with currency and exchange rates data
-* Adds a *Currency Field* to [Advanced Custom Fields](http://www.advancedcustomfields.com/) plugin
+* Adds a *Currency Field* to [Advanced Custom Fields](https://www.advancedcustomfields.com/) plugin
 * Shortcodes
 
 ## Installation
@@ -97,7 +97,6 @@ Will print the currency symbol according to currency code specified. For example
 If you find this plugin useful you're welcome to contribute by issuing bug reports, cloning this repo and submitting pull requests.
 
 ### To do:
-* Mirror this repo to SVN and get it to [wordpress.org](http://www.wordpress.org/plugins) plugins repo
 * Currency metadata (for symbols, etc.) works but is incomplete
 * Code optimizations
 * WordPress multisite support is untested (should work)

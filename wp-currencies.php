@@ -15,7 +15,7 @@
  * Plugin Name:       WP Currencies
  * Plugin URI:        https://github.com/nekojira/wp-currencies
  * Description:       Bring currency data and updated currency exchange rates into WordPress.
- * Version:           1.1.1
+ * Version:           1.1.3
  * Author:            nekojira
  * Author URI:        https://github.com/nekojira/
  * Text Domain:       wp-currencies
