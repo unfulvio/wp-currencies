@@ -1,5 +1,4 @@
 # WP Currencies
----
 WP Currencies is a [WordPress](http://www.wordpress.org) plugin that imports and periodically updates a complete set of World currencies and their exchange rates from [openexchangerates.org](https://openexchangerates.org) to WordPress database for later retrieval and use.
 
 This plugin is intended for WordPress developers who want to access to currency data from within WordPress.
@@ -97,6 +96,7 @@ Will print the currency symbol according to currency code specified. For example
 If you find this plugin useful you're welcome to contribute by issuing bug reports, cloning this repo and submitting pull requests.
 
 ### To do:
+* Improve rates update mechanism using proper WordPress cron ([as per WP Codex](http://codex.wordpress.org/Function_Reference/wp_schedule_event))
 * Currency metadata (for symbols, etc.) works but is incomplete
 * Code optimizations
 * WordPress multisite support is untested (should work)
