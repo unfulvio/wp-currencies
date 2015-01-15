@@ -47,7 +47,10 @@ class WP_Currencies_Admin  {
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Add the options page and menu item.
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+
+		// Register settings.
+		add_action( 'admin_init', array( $this, 'settings_init' ) );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
@@ -73,33 +76,6 @@ class WP_Currencies_Admin  {
 	}
 
 	/**
-	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_plugin_admin_menu() {
-
-		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'WP Currencies', $this->plugin_slug ),
-			__( 'Currencies', $this->plugin_slug ),
-			'manage_options',
-			$this->plugin_slug,
-			array( $this, 'display_plugin_admin_page' )
-		);
-
-		return $this->plugin_screen_hook_suffix;
-	}
-
-	/**
-	 * Render the settings page for this plugin.
-	 *
-	 * @since    1.0.0
-	 */
-	public function display_plugin_admin_page() {
-		include_once 'views/admin.php';
-	}
-
-	/**
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.0
@@ -112,6 +88,155 @@ class WP_Currencies_Admin  {
 			),
 			$links
 		);
+
+	}
+
+	/**
+	 * Add an admin menu page.
+	 * Uses WP Settings API for the plugin settings page.
+	 *
+	 * @since 1.2.0
+	 */
+	public function add_admin_menu(  ) {
+
+		add_options_page(
+			__( 'WP Currencies', 'wp_currencies' ),
+			__( 'Currencies', 'wp_currencies' ),
+			'manage_options',
+			'wp_currencies',
+			array( $this, 'options_page' )
+		);
+
+	}
+
+	/**
+	 * Register plugin settings.
+	 * Uses WP Settings API for the plugin settings page.
+	 * 
+	 * @since   1.2.0
+	 */
+	public function settings_init(  ) {
+
+		register_setting(
+			'wp_currencies',
+			'wp_currencies_settings'
+		);
+
+		add_settings_section(
+			'wp_currencies_settings_section',
+			__( 'Settings', 'wp_currencies' ),
+			array( $this, 'print_settings' ),
+			'wp_currencies'
+		);
+
+		add_settings_field(
+			'api_key',
+			__( 'API Key', 'wp_currencies' ),
+			array( $this, 'print_api_key_field' ),
+			'wp_currencies',
+			'wp_currencies_settings_section'
+		);
+
+		add_settings_field(
+			'update_interval',
+			__( 'Update Interval', 'wp_currencies' ),
+			array( $this, 'print_interval_field' ),
+			'wp_currencies',
+			'wp_currencies_settings_section'
+		);
+
+
+	}
+
+	/**
+	 * Print the update interval setting form field.
+	 * Plugin settings field callback function. 
+	 * 
+	 * @since   1.2.0
+	 */
+	public function print_interval_field(  ) {
+
+		$option = get_option( 'wp_currencies_settings' );
+		$update_frequency = isset( $option['update_interval'] ) ? esc_attr( $option['update_interval'] ) : ''; ?>
+
+		<label for="update_interval">
+			<?php _e( 'Rates update frequency:', 'wp_currencies' ); ?>
+			<select name="wp_currencies_settings[update_interval]" id="update_interval">
+				<option value="hourly" <?php selected( $update_frequency, 'hourly', true ); ?>><?php _e( 'Hourly', 'wp_currencies' ); ?></option>
+				<option value="daily" <?php selected( $update_frequency, 'daily', true ); ?>><?php _e( 'Daily', 'wp_currencies' ); ?></option>
+				<option value="weekly" <?php selected( $update_frequency, 'weekly', true ); ?>><?php _e( 'Weekly', 'wp_currencies' ); ?></option>
+				<option value="biweekly" <?php selected( $update_frequency, 'biweekly', true ); ?>><?php _e( 'Biweekly', 'wp_currencies' ); ?></option>
+				<option value="monthly" <?php selected( $update_frequency, 'monthly', true ); ?>><?php _e( 'Monthly', 'wp_currencies' ); ?></option>
+			</select>
+		</label>
+		<br>
+		<small>
+			<?php _e( 'Specify the frequency when to update currencies exchange rates', 'wp_currencies' ); ?>
+		</small>
+		<?php
+
+	}
+
+	/**
+	 * Print the API Key setting form field.
+	 * Plugin settings field callback function.
+	 *
+	 * @since   1.2.0
+	 */
+	public function print_api_key_field() {
+
+		$option = get_option( 'wp_currencies_settings' );
+		$api_key = isset( $option['api_key'] ) ? esc_attr( $option['api_key'] ) : ''; ?>
+
+		<label for="api_key">
+			<?php _e( 'Open Exchange Rates API key:', 'wp_currencies' ); ?>
+			<input type="password" id="api_key" name="wp_currencies_settings[api_key]" value="<?php echo $api_key; ?>" class="regular-text">
+		</label>
+		<br>
+		<small>
+			<?php printf(
+				_x( 'Get yours at: %1s', 'URL where to get the API key', 'wp_currencies' ),
+				'<a href="//openexchangerates.org/" target="_blank">openexchangerates.org</a>' ); ?>
+		</small>
+		<?php
+
+	}
+
+	/**
+	 * Settings field section callback.
+	 *
+	 * @since   1.2.0
+	 */
+	public function print_settings(  ) {
+
+		?>
+		<p>
+			<?php printf( _x( 'WP Currencies pulls currency data from %1s and imports it into the WordPress database. The exchange rates will be updated on a frequency that you can specify below.', 'openexchangerates.org link', 'wp_currencies' ), '<a href="//openexchangerates.org" target="_blank">openexchangerates.org</a>' ); ?>
+			<br />
+			<?php _e( 'Please refer to plugin documentation for functions usage to help you creating with WordPress and WP Currencies.', 'wp_currencies' ); ?>
+		</p>
+		<?php
+
+	}
+
+	/**
+	 * Print the settings option page form fields.
+	 * Uses the WP Settings API.
+	 *
+	 * @since   1.2.0
+	 */
+	public function options_page(  ) {
+
+		?>
+		<form action='options.php' method='post'>
+			<h2><?php _e( 'WP Currencies', 'wp_currencies' ); ?></h2>
+			<?php
+			settings_fields( 'wp_currencies' );
+			do_settings_sections( 'wp_currencies' );
+			submit_button();
+			?>
+		</form>
+		<?php
 
 	}
 

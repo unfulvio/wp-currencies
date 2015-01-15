@@ -33,6 +33,8 @@ class WP_Currencies_API {
 	 */
 	public function __construct() {
 
+		// nothing here yet
+
 	}
 
 	/**
@@ -51,7 +53,6 @@ class WP_Currencies_API {
 
 		return self::$instance;
 	}
-
 
 	/**
 	 * Register JSON API routes
@@ -81,14 +82,16 @@ class WP_Currencies_API {
 	/**
 	 * Get currency data API callback function
 	 *
-	 * @since 1.1.0
+	 * @since   1.1.0
 	 *
 	 * @return 	array	currency data
 	 */
 	public function api_get_currencies() {
 
 		$currencies = get_currencies();
+
 		return $currencies;
+
 	}
 
 	/**
@@ -96,14 +99,16 @@ class WP_Currencies_API {
 	 *
 	 * @param	string	$currency	(optional) base currency, default US Dollars
 	 *
-	 * @since 1.1.0
+	 * @since   1.1.0
 	 *
 	 * @return 	array	currency rates
 	 */
 	public function api_get_rates( $currency = 'USD' ) {
 
 		$rates = get_exchange_rates( $currency );
+
 		return $rates;
+
 	}
 
 }

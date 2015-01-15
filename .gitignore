@@ -39,3 +39,6 @@ dwsync.xml
 intermediate
 .idea
 cache
+
+# Stuff meant for WordPress.org repo
+/assets

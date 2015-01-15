@@ -1,0 +1,18 @@
+{
+  "name": "nekojira/wp-currencies",
+  "description": "WP Currencies - Manage currency data and exchange rates from within WordPress.",
+  "version": "1.2.0",
+  "keywords": [
+    "wordpress",
+    "currencies",
+    "exchange-rates"
+  ],
+  "homepage": "https://github.com/nekojira/wp-currencies",
+  "license": "GPLv2 or later",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.3.2",
+    "composer/installers": "v1.0.19"
+  }
+
+}

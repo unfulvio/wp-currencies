@@ -1,3 +1,10 @@
+### 1.2.0 (15 Jan 2015)
+* Added support to WooCommerce MultiLanguage
+* Updated Settings Page (you may need to re-enter your API Key)
+* The plugin now uses `wp_cron` for periodical updates
+* Introduced `currency_exists()` function
+* Bugfixes
+
 ### 1.1.3 (08 Jul 2014)
 * Added field support for Advanced Custom Fields 5.x
 * More currency data
