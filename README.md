@@ -4,6 +4,8 @@ WP Currencies is a [WordPress](http://www.wordpress.org) plugin that imports and
 
 This plugin is intended for WordPress backend and frontend developers who want to build with currency data from within WordPress.
 
+[![Download from WordPress.org](https://github.com/nekojira/wp-currencies/assets/wordpress-download-btn.png)](https://wordpress.org/plugins/wp-currencies/)
+
 
 ## Features
 
