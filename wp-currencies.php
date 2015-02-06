@@ -54,7 +54,7 @@ function wp_currencies_activation() {
 		);";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	dbDelta( $sql );
+	$wpdb->query( $sql );
 
 }
 register_activation_hook( __FILE__, 'wp_currencies_activation' );
