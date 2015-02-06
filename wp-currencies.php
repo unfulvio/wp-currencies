@@ -31,11 +31,46 @@ if ( ! defined( 'WPINC' ) )
 
 // WP Currencies main class
 require_once dirname( __FILE__ ) . 'public/class-wp-currencies.php';
-// Code to execute upon plugin activation and deactivation
-register_activation_hook( __FILE__, array( 'WP_Currencies', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'WP_Currencies', 'deactivate' ) );
 // Instantiates the main class
 add_action( 'plugins_loaded', array( 'WP_Currencies', 'get_instance' ) );
+
+/**
+ * Plugin activation hook.
+ *
+ * @since    1.2.2
+ */
+function wp_currencies_activation() {
+
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'currencies';
+
+	// creates a database table to store and update currencies later
+	$sql = "CREATE TABLE $table_name (
+			currency_code VARCHAR(3) CHARACTER SET UTF8 NOT NULL,
+			currency_rate FLOAT NOT NULL,
+			currency_data VARCHAR(5000) CHARACTER SET UTF8 NOT NULL,
+			timestamp TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
+			UNIQUE KEY currency_code (currency_code)
+		);";
+
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+
+}
+register_activation_hook( __FILE__, 'wp_currencies_activation' );
+
+/**
+ * Plugin deactivation hook.
+ *
+ * @since    1.2.2
+ */
+function wp_currencies_deactivation() {
+
+	// Clear WP Currencies wp_cron schedule
+	wp_clear_scheduled_hook( 'wp_currencies_update' );
+
+}
+register_deactivation_hook( __FILE__, 'wp_currencies_deactivation' );
 
 // WP Currencies API class (extends JSON REST API if available)
 require_once dirname( __FILE__ ) . 'public/class-wp-currencies-api.php';
