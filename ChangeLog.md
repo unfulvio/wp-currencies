@@ -1,3 +1,7 @@
+### 1.2.2 (06 feb 2015)
+* Fixes a bug where the currencies table is not created in database upon plugin activation
+* If you were experiencing issues with previous version, you may want to deactivate and reactivate plugin after update
+
 ### 1.2.1 (06 feb 2015)
 * Fixes broken link to plugin settings page (props @jkomar)
 

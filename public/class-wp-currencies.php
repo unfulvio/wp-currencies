@@ -24,7 +24,7 @@ class WP_Currencies {
 	 *
 	 * @var		string
 	 */
-	const VERSION = '1.2.1';
+	const VERSION = '1.2.2';
 
 	/**
 	 * Plugin unique identifier, also used for textdomain
@@ -139,7 +139,7 @@ class WP_Currencies {
 	 *
 	 * @since    1.0.0
 	 */
-	private static function activate() {
+	public static function activate() {
 
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'currencies';
@@ -163,7 +163,7 @@ class WP_Currencies {
 	 *
 	 * @since    1.0.0
 	 */
-	private static function deactivate() {
+	public static function deactivate() {
 
 		// Clear WP Currencies wp_cron schedule
 		wp_clear_scheduled_hook( 'wp_currencies_update' );
