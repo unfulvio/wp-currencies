@@ -1,3 +1,6 @@
+### 1.2.1 (06 feb 2015)
+* Fixes broken link to plugin settings page (props @jkomar)
+
 ### 1.2.0 (15 Jan 2015)
 * Added support to WooCommerce MultiLanguage
 * Updated Settings Page (you may need to re-enter your API Key)

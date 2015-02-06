@@ -1,7 +1,7 @@
 {
   "name": "nekojira/wp-currencies",
   "description": "WP Currencies - Manage currency data and exchange rates from within WordPress.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "keywords": [
     "wordpress",
     "currencies",

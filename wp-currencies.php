@@ -15,7 +15,7 @@
  * Plugin Name:       WP Currencies
  * Plugin URI:        https://github.com/nekojira/wp-currencies
  * Description:       Bring currency data and updated currency exchange rates into WordPress.
- * Version:           1.2.0
+ * Version:           1.2.1
  * Author:            nekojira
  * Author URI:        https://github.com/nekojira/
  * Text Domain:       wp-currencies
@@ -29,13 +29,13 @@
 if ( ! defined( 'WPINC' ) )
 	die;
 
-// Code to execute upon plugin activation and deactivation
-register_activation_hook( __FILE__, array( 'WP_Currencies', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'WP_Currencies', 'deactivate' ) );
-
 // WP Currencies main class
 require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies.php';
 add_action( 'plugins_loaded', array( 'WP_Currencies', 'get_instance' ) );
+
+// Code to execute upon plugin activation and deactivation
+register_activation_hook( __FILE__, array( 'WP_Currencies', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'WP_Currencies', 'deactivate' ) );
 
 // WP Currencies API class (extends JSON REST API if available)
 require_once plugin_dir_path( __FILE__ ) . 'public/class-wp-currencies-api.php';

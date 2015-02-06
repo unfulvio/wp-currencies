@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_flow&SESSION=SUJDJhsq
 Tags: currency, currencies
 Requires at least: 3.6.0
 Tested up to: 4.1.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

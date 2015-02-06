@@ -84,7 +84,7 @@ class WP_Currencies_Admin  {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Currencies', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=wp_currencies' ) . '">' . __( 'Currencies', $this->plugin_slug ) . '</a>'
 			),
 			$links
 		);
