@@ -24,7 +24,7 @@ class WP_Currencies {
 	 *
 	 * @var		string
 	 */
-	const VERSION = '1.2.2';
+	const VERSION = '1.2.3';
 
 	/**
 	 * Plugin unique identifier, also used for textdomain
@@ -285,10 +285,10 @@ class WP_Currencies {
 		if ( ! isset( $option['update_interval'] ) )
 			return;
 
-		if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
+		if ( ! wp_next_scheduled( 'wp_currencies_update' ) )
 			wp_schedule_event( time(), $option['update_interval'], 'wp_currencies_update' );
-			$this->update_wcml();
-		}
+
+		$this->update_wcml();
 
 	}
 
