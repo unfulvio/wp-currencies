@@ -150,6 +150,9 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 == Changelog ==
 
+= 1.2.4 =
+* Fixes "The plugin generated ... characters of unexpected output" upon activation
+
 = 1.2.2 =
 * Fixes missing database table creation on plugin activation (you may want to deactivate and reactivate plugin after upgrade if were experiencing issues)
 

@@ -44,17 +44,22 @@ function wp_currencies_activation() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'currencies';
 
-	// creates a database table to store and update currencies later
-	$sql = "CREATE TABLE $table_name (
-			currency_code VARCHAR(3) CHARACTER SET UTF8 NOT NULL,
-			currency_rate FLOAT NOT NULL,
-			currency_data VARCHAR(5000) CHARACTER SET UTF8 NOT NULL,
-			timestamp TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
-			UNIQUE KEY currency_code (currency_code)
-		);";
+	// skip if db table already exists
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) :
 
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	$wpdb->query( $sql );
+		// creates a database table to store and update currencies later
+		$sql = "CREATE TABLE $table_name (
+				currency_code VARCHAR(3) CHARACTER SET UTF8 NOT NULL,
+				currency_rate FLOAT NOT NULL,
+				currency_data VARCHAR(5000) CHARACTER SET UTF8 NOT NULL,
+				timestamp TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
+				UNIQUE KEY currency_code (currency_code)
+			);";
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$wpdb->query( $sql );
+
+	endif;
 
 }
 register_activation_hook( __FILE__, 'wp_currencies_activation' );
