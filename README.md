@@ -1,5 +1,7 @@
 # WP Currencies 
 
+[![Join the chat at https://gitter.im/nekojira/wp-currencies](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nekojira/wp-currencies?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 WP Currencies is a [WordPress](http://www.wordpress.org) plugin that imports and periodically updates a complete set of World currencies and their exchange rates from [openexchangerates.org](https://openexchangerates.org) to WordPress database for later retrieval and use.
 
 This plugin is intended for WordPress backend and frontend developers who want to build with currency data from within WordPress.
