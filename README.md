@@ -25,7 +25,7 @@ This plugin is intended for WordPress backend and frontend developers who want t
 
 * PHP 5.3.2+ (works fine on 5.4.x and 5.5.x)
 * MySQL 5.0+ (tested up to 5.5.40)
-* WordPress 3.6+ (works fine as of 4.1)
+* WordPress 3.6+ (works fine as of 4.2)
 
 You will also need a valid [openexchangerates.org](https://openexchangerates.org) API Key, otherwise this plugin will be useless.
 
