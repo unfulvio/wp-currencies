@@ -24,7 +24,7 @@ class WP_Currencies {
 	 *
 	 * @var		string
 	 */
-	const VERSION = '1.2.4';
+	const VERSION = '1.2.5';
 
 	/**
 	 * Plugin unique identifier, also used for textdomain

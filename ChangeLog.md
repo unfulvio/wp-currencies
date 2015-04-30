@@ -1,3 +1,6 @@
+### 1.2.5 (30 apr 2015)
+* Supports WordPress 4.2
+
 ### 1.2.4 (26 feb 2015)
 * Fixes "The plugin generated ... characters of unexpected output" upon activation
 
