@@ -59,35 +59,35 @@ Even if the base currency is in US Dollars (which is what [openexchangerates.org
 
 The plugin comes with the following PHP functions to access the currency data:
 
-#### `get_exchange_rates( $currency_code = 'USD' )`
+##### `get_exchange_rates( $currency_code = 'USD' )`
 Will return a PHP array with all the currency codes and their corresponding rate.
 By default USD (US Dollar) will be used to return rates, but you can pass another ISO currency code (eg. `'EUR'`) as the function argument.
 
-#### `get_exchange_rates_json( $currency_code = 'USD' )`
+##### `get_exchange_rates_json( $currency_code = 'USD' )`
 This is a helper function that outputs a json object with each currency code and their corresponding rate to US dollar. This function's output will be the response to Ajax requests to `'get_exchange_rates'`.
 
-#### `convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' )`
+##### `convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' )`
 Converts a given amount from one currency into another and returns a float as result. You need to specify currency codes as arguments; will default from 1 USD to EUR.
 Example: `convert_currency( '150', 'GBP', 'AUD' )` will return a number with the equivalent in AUD of 150 GBP. You can use floats too.
 
-#### `get_exchange_rate( $currency1 = 'USD', $currency2 = 'EUR' )`
+##### `get_exchange_rate( $currency1 = 'USD', $currency2 = 'EUR' )`
 An alias of `convert_currency()` with fixed amount of 1 to return the exchange rate between these two currencies.
 Example: `get_exchange_rate( 'GBP', 'CAD' )` returns a float with the current exchange rate of GBP to CAD.
 
-#### `get_currencies()`
+##### `get_currencies()`
 Returns a PHP array with currencies codes and currency data such as name in English and symbol. This function has no arguments.
 
-#### `get_currencies_json()`
+##### `get_currencies_json()`
 Outputs a json object with currencies codes and currency data such as currency name in English and corresponding symbol. This function's output will be the response to Ajax requests to `'get_currencies'`.
 
-#### `get_currency( $currency_code = 'USD' )`
+##### `get_currency( $currency_code = 'USD' )`
 Given a specified currency code, will return a PHP array with the currency name in English language, currency symbol as html entity or currency code, currency symbol position (before or after), number of decimals, decimals and thousands separators.
 Example: `get_currency( 'CHF' )` will return array data for Swiss Franc.
 
-#### `format_currency( $amount, $currency_code, $symbol )`
+##### `format_currency( $amount, $currency_code, $symbol )`
 Formats a given amount (integer or float) using specified currency data and returns the number with the currency symbol. For example: `format_currency( 1025.980, 'USD' )` will return `1,025.98 $`. Pass `$symbol` to false if you don't want the currency symbol to appear in the output.
 
-#### `currency_exists( $currency_code )` ####
+##### `currency_exists( $currency_code )` ####
 You can use this helper function to check if a currency (as a 3-letter ISO code) exists in database and can be used in operations with the other functions.
 
 
@@ -105,11 +105,11 @@ For example: `/currencies/rates?currency=EUR` will output exchange rates for the
 ## Shortcodes
 The plugin also features two shortcodes:
 
-#### `[currency_convert amount="{number}" from="{currency1}" in="{currency2}" round="2"]`
+##### `[currency_convert amount="{number}" from="{currency1}" in="{currency2}" round="2"]`
 Will print the converted amount of one currency into another, according to values specified. You can use a float too as amount to convert. `round` is optional, defaults to 2 (rounds to two decimals). For example: `[currency_convert amount='260' from="MYR" in="THB" round="0"]` will print a integer number resulting from the conversion of 260 Malaysian Ringgit to Thai Baht.
 
-#### `[currency_symbol currency="{currency}"]`
+##### `[currency_symbol currency="{currency}"]`
 Will print the currency symbol according to currency code specified. For example: `[currency_symbol currency="JPY"]` (Japanese Yen) will print `&#165;` which will render as `¥`.
 
 ## Contributing
-If you find this plugin useful you're welcome to contribute by issuing bug reports, cloning this repo and submitting pull requests.
+If you find this plugin useful you're welcome to contribute by issuing bug reports, cloning this repo and submitting pull requests. Thank you.
