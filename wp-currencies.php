@@ -5,18 +5,17 @@
  * A WordPress plugin to import a complete list of World currencies into WordPress.
  * Each currency will include updated exchange rates from openexchangerates.org
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
+ * @package   WP_Currencies
+ * @author    Fulvio Notarstefano <fulvio.notarstefano@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/nekojira/wp-currencies
- * @copyright 2014 nekojira
  *
  * @wordpress-plugin
  * Plugin Name:       WP Currencies
  * Plugin URI:        https://github.com/nekojira/wp-currencies
  * Description:       Bring currency data and updated currency exchange rates into WordPress.
- * Version:           1.2.5
- * Author:            nekojira
+ * Version:           1.3.0
+ * Author:            Fulvio Notarstefano
  * Author URI:        https://github.com/nekojira/
  * Text Domain:       wp-currencies
  * License:           GPL-2.0+
@@ -25,9 +24,9 @@
  * GitHub Plugin URI: https://github.com/nekojira/wp-currencies
   */
 
-// If this file is called directly, abort
-if ( ! defined( 'WPINC' ) )
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 // WP Currencies main class
 require_once 'public/class-wp-currencies.php';

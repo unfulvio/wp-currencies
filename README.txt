@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_flow&SESSION=SUJDJhsq
 Tags: currency, currencies
 Requires at least: 3.6.0
 Tested up to: 4.2.1
-Stable tag: 1.2.5
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,9 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 == Changelog ==
 
+= 1.3.0 =
+* Removed support for WCML (use the new WCML hooks instead)
+
 = 1.2.5 =
 * Supports WordPress 4.2
 
@@ -186,6 +189,9 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+IMPORTANT: WCML support was removed since with most recent updates in WCML it broke WCML. WCML now offers hooks to alter rates output and you can filter those rates with WP Currencies functions in your theme.
 
 = 1.2.2 =
 Fixed a bug where the currencies table was not created in database; you may want to deactivate and reactivate the plugin after this upgrade if you were experiencing issues.

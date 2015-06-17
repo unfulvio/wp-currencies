@@ -1,19 +1,18 @@
 <?php
 /**
- * WP Currencies Advanced Custom Fields currency field for ACF v4.x
+ * WP Currencies ACF 4 currency field
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * Support for Advanced Custom Fields version 4.x
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Class WP Currencies ACF v4
  *
- * @package WP Currencies
- * @author  nekojira <fulvio@nekojira.com>
+ * @package WP_Currencies
  */
 class WP_Currency_ACF_v4 extends acf_field {
 

@@ -1,19 +1,16 @@
 <?php
 /**
- * WP Currencies
- *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * WP Currencies main class
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * WP Currencies main class
  *
- * @package WP Currencies
- * @author  nekojira <fulvio@nekojira.com>
+ * @package WP_Currencies
  */
 class WP_Currencies {
 
@@ -24,7 +21,7 @@ class WP_Currencies {
 	 *
 	 * @var		string
 	 */
-	const VERSION = '1.2.5';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Plugin unique identifier, also used for textdomain
@@ -266,7 +263,6 @@ class WP_Currencies {
 		if ( isset( $saved['update_interval'] ) ) {
 			wp_clear_scheduled_hook( 'wp_currencies_update' );
 			wp_schedule_event( time(), $saved['update_interval'], 'wp_currencies_update' );
-			$this->update_wcml();
 		}
 
 	}
@@ -287,8 +283,6 @@ class WP_Currencies {
 
 		if ( ! wp_next_scheduled( 'wp_currencies_update' ) )
 			wp_schedule_event( time(), $option['update_interval'], 'wp_currencies_update' );
-
-		$this->update_wcml();
 
 	}
 
@@ -323,7 +317,13 @@ class WP_Currencies {
 
 	/**
 	 * Updates WPML WooCommerce Multilanguage rates.
-	 * If WCML extension is installed, will update the saved currency rates option.
+	 *
+	 * This function updated WCML rates stored in their option setting
+	 * It wasn't very clean and WCML now has hooks therefore this can be deprecated.
+	 * @link https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/
+	 * @link https://github.com/nekojira/wp-currencies/issues/2
+	 *
+	 * @deprecated since 1.3 - this function was left here for reference only, do not use it
 	 *
 	 * @since   1.2.0
 	 */

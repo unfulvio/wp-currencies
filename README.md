@@ -13,22 +13,17 @@ This plugin is intended for WordPress backend and frontend developers who want t
 ## Features
 
 * Pulls currency data from [openexchangerates.org](https://openexchangerates.org)
-* Imports currency exchange rates into a WordPress database table
+* Imports currency exchange rates into a local database table
 * Periodically and automatically updates currency data by set cron intervals
-* If [WooCommerce](https://github.com/woothemes/woocommerce) and [WPML WooCommerce Multilingual](https://wordpress.org/plugins/woocommerce-multilingual/) are installed, it will automatically update the rates for the set currencies as well
+* If you use [WooCommerce](https://github.com/woothemes/woocommerce) and [WPML WooCommerce Multilingual](https://wordpress.org/plugins/woocommerce-multilingual/), you can use [WCML hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) together with WP Currencies functions to change currency rates on the fly.
 * Provides a set of PHP functions to retrieve currency data and exchange rates or perform currency conversions via PHP or Ajax
 * Registers [JSON REST API](https://wordpress.org/plugins/json-rest-api/) endpoints with currency and exchange rates data
 * Adds a *Currency Field* to [Advanced Custom Fields](https://www.advancedcustomfields.com/) plugin, if installed
 * Provides 2 shortcodes to print currency data or conversion rates from a WordPress post or page
 
-
 ## Requirements
 
-* PHP 5.3.2+ (works fine on 5.4.x and 5.5.x)
-* MySQL 5.0+ (tested up to 5.5.40)
-* WordPress 3.6+ (works fine as of 4.2)
-
-You will also need a valid [openexchangerates.org](https://openexchangerates.org) API Key, otherwise this plugin will be useless.
+You will need a valid [openexchangerates.org](https://openexchangerates.org) API Key.
 
 
 ## Installation

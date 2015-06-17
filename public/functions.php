@@ -2,12 +2,14 @@
 /**
  * WP Currencies functions
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * Public functions library.
+ *
+ * @package WP_Currencies
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Get currency exchange rates.

@@ -1,17 +1,15 @@
 <?php
 /**
+ * WP Currencies uninstall
+ *
  * Fired when the plugin is uninstalled.
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * @package WP_Currencies
  */
 
-// If uninstall not called from WordPress, then exit
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
-	exit;
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit; // exit if accessed directly
+}
 
 global $wpdb;
 

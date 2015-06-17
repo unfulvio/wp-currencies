@@ -1,4 +1,11 @@
 <?php
+/**
+ * Currency data
+ *
+ * @todo this needs revision and update
+ *
+ * @package WP_Currencies
+ */
 
 // get currencies names and codes from remote
 $currency_names = $this->get_json( $this->currency_names, '' );

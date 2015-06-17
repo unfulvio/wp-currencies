@@ -2,18 +2,18 @@
 /**
  * WP_Currencies_Admin class
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * The class that orchestrates the plugin settings
+ * using the WordPress Settings API
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * WP Currencies Admin class
  *
- * @package WP Currencies
- * @author  nekojira <fulvio@nekojira.com>
+ * @package WP_Currencies
  */
 class WP_Currencies_Admin  {
 

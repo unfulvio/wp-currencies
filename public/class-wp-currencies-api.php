@@ -2,18 +2,17 @@
 /**
  * WP Currencies API
  *
- * @package   WP Currencies
- * @author    nekojira <fulvio@nekojira.com>
- * @license   GPL-2.0+
- * @link      https://github.com/nekojira/wp-currencies/
- * @copyright 2014 nekojira
+ * Support for WordPress JSON REST API.
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * WP Currencies API class
  *
- * @package WP Currencies
- * @author  nekojira <fulvio@nekojira.com>
+ * @package WP_Currencies
  */
 class WP_Currencies_API {
 
@@ -25,17 +24,6 @@ class WP_Currencies_API {
 	 * @var  	object
 	 */
 	protected static $instance = null;
-
-	/**
-	 * Initialize
-	 *
-	 * @since 1.1.0
-	 */
-	public function __construct() {
-
-		// nothing here yet
-
-	}
 
 	/**
 	 * Return an instance of this class.
