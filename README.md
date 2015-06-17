@@ -1,4 +1,4 @@
-# WP Currencies 
+# WP Currencies
 
 [![GitHub version](https://badge.fury.io/gh/nekojira%2Fwp-currencies.svg)](http://badge.fury.io/gh/nekojira%2Fwp-currencies)
 [![Join the chat at https://gitter.im/nekojira/wp-currencies](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nekojira/wp-currencies?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -48,7 +48,7 @@ If the API key is valid and Open Exchange Rates site is working properly, curren
 
 
 ## Usage
-This plugin will create a database table in WordPress database called `currencies` (or more likely `wp_currencies`, according to your own WordPress default database prefix). You can inspect the table with PHPMyAdmin. Each row in the table has four columns:
+This plugin will create a database table in WordPress database called `currencies` (or more likely `wp_currencies`, according to your own WordPress default database prefix). Each row in the table has four columns:
 
 1. Currency represented by an ISO 4217 code (string, eg. USD, GBP, EUR...)
 2. Currency conversion rate to US Dollar (float)
@@ -56,7 +56,8 @@ This plugin will create a database table in WordPress database called `currencie
 4. Timestamp marking the time when the last update occurred (date)
 
 Even if the base currency is in US Dollars (which is what [openexchangerates.org](https://openexchangerates.org) API ships with by default anyway), you can perform any action for any currency with this data.
-The plugin comes with the following PHP functions to access the data:
+
+The plugin comes with the following PHP functions to access the currency data:
 
 #### `get_exchange_rates( $currency_code = 'USD' )`
 Will return a PHP array with all the currency codes and their corresponding rate.
@@ -84,7 +85,7 @@ Given a specified currency code, will return a PHP array with the currency name 
 Example: `get_currency( 'CHF' )` will return array data for Swiss Franc.
 
 #### `format_currency( $amount, $currency_code, $symbol )`
-Formats a given amount (integer or float) using specified currency data and returns the number with the currency symbol. For example: `format_currency( 1025.980, 'USD' )` will return `1,025.98 $`. Pass `$symbol` to false if you don't want the currency symbol to appear in the output. 
+Formats a given amount (integer or float) using specified currency data and returns the number with the currency symbol. For example: `format_currency( 1025.980, 'USD' )` will return `1,025.98 $`. Pass `$symbol` to false if you don't want the currency symbol to appear in the output.
 
 #### `currency_exists( $currency_code )` ####
 You can use this helper function to check if a currency (as a 3-letter ISO code) exists in database and can be used in operations with the other functions.
@@ -102,7 +103,7 @@ For example: `/currencies/rates?currency=EUR` will output exchange rates for the
 
 
 ## Shortcodes
-The plugin also provides two WordPress shortcodes:
+The plugin also features two shortcodes:
 
 #### `[currency_convert amount="{number}" from="{currency1}" in="{currency2}" round="2"]`
 Will print the converted amount of one currency into another, according to values specified. You can use a float too as amount to convert. `round` is optional, defaults to 2 (rounds to two decimals). For example: `[currency_convert amount='260' from="MYR" in="THB" round="0"]` will print a integer number resulting from the conversion of 260 Malaysian Ringgit to Thai Baht.
