@@ -23,7 +23,7 @@ This plugin is intended for WordPress backend and frontend developers who want t
 
 ## Requirements
 
-You will need a valid [openexchangerates.org](https://openexchangerates.org) API Key.
+**You will need a valid [openexchangerates.org](https://openexchangerates.org) API Key** or you won't be able to use this plugin.
 
 
 ## Installation
@@ -34,9 +34,7 @@ How to install and activate:
 3. Locate *WP Currencies* among installed plugins
 4. Click on *Activate*
 
-**You will need an [openexchangerates.org](https://openexchangerates.org) API key to make it work properly.**
-
-Once the plugin is activated and you have obtained a valid API key, take the following steps:
+Once the plugin is activated and you have obtained a valid API key from [openexchangerates.org](https://openexchangerates.org), take the following steps:
 
 1. From your WordPress admin navigate to the *Settings* dashboard menu
 2. Click on *Currencies* menu item
