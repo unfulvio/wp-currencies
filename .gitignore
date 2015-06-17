@@ -29,9 +29,8 @@ nbproject
 .komodotools
 
 # Folders to ignore
-/wordpress.org
 .hg
-.svn
+/svn
 .CVS
 intermediate
 .idea
