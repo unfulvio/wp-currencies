@@ -338,17 +338,17 @@ class WP_Currencies {
 		if ( ! isset( $wcml['currency_options'] ) OR ! $base_currency )
 			return;
 
-		$updated = $new_rates = '';
+		$new_rates = '';
 		// This replaces each rate and rebuilds the option data
 		foreach ( $wcml['currency_options'] as $currency => $values ) {
 			$new_rates[$currency] = $values;
 			$new_rates[$currency]['rate'] = get_exchange_rate( $base_currency, $currency );
 		}
 		if ( $new_rates )
-			$updated['currency_options'] = $new_rates;
+			$wcml['currency_options'] = $new_rates;
 
 		// Finally, overwrite WCML option data
-		update_option( '_wcml_settings', $updated );
+		update_option( '_wcml_settings', $wcml );
 
 	}
 
