@@ -8,6 +8,10 @@
  */
 namespace WP_Currencies;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 /**
  * Exchange rates.
  *
