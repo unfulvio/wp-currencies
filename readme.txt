@@ -10,17 +10,26 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Currency data and updated currency exchange rates for WordPress.
 
+
 == Description ==
 
-WP Currencies is a WordPress plugin that helps you fetch currency data from http://www.openexchangerates.org/.
+WP Currencies uses [openexchangerates.org](http://www.openexchangerates.org/) to pull currency data and currency exchange rates in WordPress.
 
-The currencies and their exchange rates will be periodically updated at intervals that can be set in WordPress dashboard settings by a WordPress administrator.
+The currencies and their exchange rates will be periodically updated at intervas set from the WordPress dashboard by an administrator.
 
-The plugin is intended for developers that want to access currencies data and currency exchange rates from within WordPress. The plugin comes with functions to retrieve currency data and exchange rates as PHP arrays or json objects. Furthermore, it extends [JSON REST WP API]( https://wordpress.org/plugins/json-rest-api/) with new routes, and, if you use [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/), WP Currencies will also add a new "Currency" field.
+The plugin is intended for developers that want to access currencies data and currency exchange rates from within WordPress and perform basic currency rates conversions. WP Currencies comes with a functions library to retrieve currency data and exchange rates as PHP arrays or json objects in ajax calls. 
+
+Furthermore, it extends [JSON REST WP API]( https://wordpress.org/plugins/json-rest-api/) with new routes, and, if you use [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) (ACF), WP Currencies will also add a new "Currency" field for use in ACF.
 
 If you use [WPML](http://wpml.org/) and have both [WooCommerce](https://wordpress.org/plugins/woocommerce/) and [WooCommerce MultiLingual] (https://wordpress.org/plugins/woocommerce-multilingual/) installed, you can use this plugin to filter WCML currency rate using [one of their hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) and update rates on the fly.
 
 **Important** - You will need an API key from http://www.openexchangerates.org/ to pull currency data and make this plugin work properly (either choose the forever free plan or one of their premium subscriptions).
+
+= Documentation =
+
+A more complete documentation for this plugin is found in the [Github wiki](https://github.com/nekojira/wp-currencies/wiki).
+
+= Contributing =
 
 To contribute with bug reports or submit pull requests, please refer to [WP Currencies repository on Github](https://github.com/nekojira/wp-currencies), thank you.
 
@@ -31,116 +40,63 @@ Install as you would do with any other WordPress plugin to get started.
 
 = Using The WordPress Dashboard =
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'WP Currencies'
-3. Click 'Install Now'
-4. Activate the plugin on the Plugin dashboard
+1. Navigate to the 'Add New' in the plugins dashboard.
+2. Search for 'WP Currencies'.
+3. Click 'Install Now'.
+4. Activate the plugin.
 
-= Uploading in WordPress Dashboard =
+= Uploading in WordPress =
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Navigate to the 'Upload' area
-3. Select `wp-currencies.zip` from your computer
-4. Click 'Install Now'
-5. Activate the plugin in the Plugin dashboard
+1. Navigate to the 'Add New' in the plugins dashboard.
+2. Navigate to the 'Upload' area.
+3. Select `wp-currencies.zip` from your computer.
+4. Click 'Install Now'.
+5. Activate the plugin.
 
 = Using FTP =
 
-1. Download `wp-currencies.zip`
-2. Extract `wp-currencies` directory to your computer
-3. Upload  `wp-currencies` directory to the `/wp-content/plugins/` directory
-4. Activate the plugin in the Plugin dashboard
+1. Download `wp-currencies.zip`.
+2. Extract `wp-currencies` directory to your computer.
+3. Upload  `wp-currencies` directory to the `/wp-content/plugins/` directory.
+4. Activate the plugin from the dashboard.
 
 = Setting up the plugin =
 
 After installation, navigate to `Currencies` settings page in the `Settings` admin menu in your WordPress admin dashboard.
 From here, enter your Open Exchange Rates API key - get yours at [http://www.openexchangerates.org/](http://www.openexchangerates.org/) and hit the `Save Changes` button.
 
-You may as well specify a different update frequency of your currency exchange rates. Default is once per week (7 days). You can adjust this according to your requirements. The faster it can update the currency rates is 1 hour - but it's generally not recommended even if the plugin doesn't consume much resources. Please also note that this plugin should not be treated as a mission critical tool for dealing with currencies (read the license and the disclaimer carefully). Please also note that the free Open Exchange Rate plan has a maximum of 1,000 queries per month at the time of writing this and you may run out of your quota if you exceed this number.
+You may as well specify a different update frequency of your currency exchange rates. 
 
-**Important:** The currencies will be first pulled to your WordPress database at the first usage of any of the plugin functions, after having entered a valid API key. You may need to refresh your application just once.
 
 == Functions ==
 
-`get_exchange_rates( $currency_code = 'USD' )`
-Will return a PHP array with all the currency codes and their corresponding rate.
-By default USD (US Dollar) will be used to return rates, but you can pass another ISO currency code (eg. `'EUR'`) as the function argument.
-
-`get_exchange_rates_json( $currency_code = 'USD' )`
-This is a helper function that outputs a json object with each currency code and their corresponding rate to US dollar. This function's output will be the response to Ajax requests to `'get_exchange_rates'`.
-
-`convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' )`
-Converts a given amount from one currency into another and returns a float as result. You need to specify currency codes as arguments; will default from 1 USD to EUR.
-Example: `convert_currency( '150', 'GBP', 'AUD' )` will return a number with the equivalent in AUD of 150 GBP. You can use floats too.
-
-`get_exchange_rate( $currency1 = 'USD', $currency2 = 'EUR' )`
-An alias of `convert_currency()` with fixed amount of 1 to return the exchange rate between these two currencies.
-Example: `get_exchange_rate( 'GBP', 'CAD' )` returns a float with the current exchange rate of GBP to CAD.
-
-`get_currencies()`
-Returns a PHP array with currencies codes and currency data such as name in English and symbol. This function has no arguments.
-
-`get_currencies_json()`
-Outputs a json object with currencies codes and currency data such as currency name in English and corresponding symbol. This function's output will be the response to Ajax requests to `'get_currencies'`.
-
-`get_currency( $currency_code = 'USD' )`
-Given a specified currency code, will return a PHP array with the currency name in English language, currency symbol as html entity or currency code, currency symbol position (before or after), number of decimals, decimals and thousands separators.
-Example: `get_currency( 'CHF' )` will return array data for Swiss Franc.
-
-`format_currency( $amount, $currency_code, $symbol )`
-Formats a given amount (integer or float) using specified currency data and returns the number with the currency symbol. For example: `format_currency( 1025.980, 'USD' )` will return `1,025.98 $`. Pass `$symbol` to false if you don't want the currency symbol to appear in the output.
-
-`currency_exists( $currency_code )`
-You can use this helper function to check if a currency (as a 3-letter ISO code) exists in database and can be used in operations with the other functions.
-
-
-== API ==
-
-If you use WP API (https://wordpress.org/plugins/json-rest-api/), WP Currencies will automatically register the following routes:
-
-`/currencies/`
-will respond with currencies data (currency code, currency name, symbol, separators, etc).
-
-`/currencies/rates/`
-will respond with currency exchange rates for US Dollar in each currency.
-
-`/currencies/rates?currency={currency_code}`
-will respond with currency exchange rates with given base currency code.
-(For example: `/currencies/rates?currency=EUR` will output exchange rates for the Euro.)
-
-
-== Shortcodes ==
-
-The plugin also provides two WordPress shortcodes:
-
-`[currency_convert amount="{number}" from="{currency_code1}" in="{currency_code2}" round="2"]`
-Will print the converted amount of one currency into another, according to values specified. You can use a float too as amount to convert. `round` is optional, defaults to 2 (rounds to two decimals). For example: `[currency_convert amount='260' from="MYR" to="THB" round="0"]` will print a rounded integer number resulting from the conversion of 260 Malaysian Ringgit to Thai Baht.
-
-`[currency_symbol currency="{currency_code}"]`
-Will print the currency symbol according to currency code specified. For example: `[currency_symbol currency="JPY"]` (Japanese Yen) will print `&#165;` which will render as `¥`.
-
+For the full documentation, please refer to the [WP Currencies wiki on Github](https://github.com/nekojira/wp-currencies/wiki).
 
 == Frequently Asked Questions ==
 
 = I've installed the plugin but I don't see anything! =
 
-Please read again the plugin description and read the functions documentation. WP Currencies by this time doesn't offer any WYSIWYG functionality, but it's intended for developers who want to build features, themes or other plugins using currency data - which this plugin provides.
+Please read again the plugin description and read the [documentation](https://github.com/nekojira/wp-currencies/wiki). 
+WP Currencies by this time doesn't offer any WYSIWYG functionality, but it's intended for developers who want to build solutions using currency data and exchange rates - which this plugin provides with an API for using those in WordPress.
 
 = Is this plugin created or endorsed by Open Exchange Rates? =
 
-No it is not. It just makes use of their public API within their Terms and Conditions policy: https://openexchangerates.org/terms.
+No it is not. It just makes use of their public API within their Terms and Conditions policy: [https://openexchangerates.org/terms](https://openexchangerates.org/terms).
 
 = Can you guarantee that the currency exchange rates provided will be accurate? =
 
-No. As Open Exchange Rates itself says: "Exchange rates are provided for informational purposes only, and do not constitute financial advice of any kind. Although every attempt is made to ensure quality, NO guarantees are given whatsoever of accuracy, validity, availability, or fitness for any purpose - please use at your own risk."
-It is not recommended to use this plugin in critical business scenarios. The plugin author(s) nor the currency exchange rates provider(s) will not be responsible for financial loss or damage caused by data inaccuracies. Please refer to GPL license and Open Exchange Rates terms and conditions for further information.
+**No.** As Open Exchange Rates itself says: "Exchange rates are provided for informational purposes only, and do not constitute financial advice of any kind. Although every attempt is made to ensure quality, NO guarantees are given whatsoever of accuracy, validity, availability, or fitness for any purpose - please use at your own risk."
+It is not recommended to use this plugin in critical business scenarios. The plugin author(s) nor the currency exchange rates provider(s) will not be responsible for financial loss or damage caused by data inaccuracies. Please refer to the GPL license and Open Exchange Rates terms and conditions for further information.
 
 = What if I exceed my Open Exchange Rates API request quota? =
 
-This plugin will be unable to update the database and older, perhaps less accurate currency rates will be used.
-You can monitor your quota usage according to your subscription plan by logging into your Open Exchange Rates account at https://openexchangerates.org/.
-From the plugin settings, you can specify a greater interval of database updates to make less API requests (default is 1 request per week or 7 days; setting the interval to 0 will attempt hourly database updates which will generate at most between 672 and 744 requests monthly, but more likely less than that).
-Please note that if you make use of the API elsewhere and perform more requests, they will be counted by Open Exchange Rates and summed up with the ones triggered by this plugin.
+This plugin will be unable to update the database and older, may throw a warning when it tries to do so (as if it would with an invalid API key) and less accurate currency rates will be used (those recorded in the database at the time of the last update).
+You can monitor your quota usage according to your subscription plan by logging into your Open Exchange Rates account at [https://openexchangerates.org/](https://openexchangerates.org/).
+From the plugin settings, you can specify a less frequent interval of database updates to make less API requests. Please note that if you make use of the API elsewhere and perform more requests, they will be counted by Open Exchange Rates and summed up with the ones triggered by this plugin.
+
+= WP Currencies runs but the currencies aren't refreshed at the intervals I've set - why? =
+
+This could be related to `cron` not working properly in your host. Please refer to the `Troubleshooting` section of [WP Currencies documentation](https://github.com/nekojira/wp-currencies/wiki).
 
 
 == Screenshots ==
