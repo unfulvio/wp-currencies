@@ -15,13 +15,13 @@ Currency data and updated currency exchange rates for WordPress.
 
 WP Currencies uses [openexchangerates.org](http://www.openexchangerates.org/) to pull currency data and currency exchange rates in WordPress.
 
-The currencies and their exchange rates will be periodically updated at intervas set from the WordPress dashboard by an administrator.
+The currencies and their exchange rates will be periodically updated at intervals set from the WordPress dashboard by an administrator.
 
 The plugin is intended for developers that want to access currencies data and currency exchange rates from within WordPress and perform basic currency rates conversions. WP Currencies comes with a functions library to retrieve currency data and exchange rates as PHP arrays or json objects in ajax calls. 
 
 Furthermore, it extends [JSON REST WP API]( https://wordpress.org/plugins/json-rest-api/) with new routes, and, if you use [Advanced Custom Fields](https://wordpress.org/plugins/advanced-custom-fields/) (ACF), WP Currencies will also add a new "Currency" field for use in ACF.
 
-If you use [WPML](http://wpml.org/) and have both [WooCommerce](https://wordpress.org/plugins/woocommerce/) and [WooCommerce MultiLingual] (https://wordpress.org/plugins/woocommerce-multilingual/) installed, you can use this plugin to filter WCML currency rate using [one of their hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) and update rates on the fly.
+If you use [WPML](http://wpml.org/) and have both [WooCommerce](https://wordpress.org/plugins/woocommerce/) and [WooCommerce MultiLingual](https://wordpress.org/plugins/woocommerce-multilingual/) installed, you can use this plugin to filter WCML currency rate using [one of their hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) and update rates on the fly.
 
 **Important** - You will need an API key from http://www.openexchangerates.org/ to pull currency data and make this plugin work properly (either choose the forever free plan or one of their premium subscriptions).
 
