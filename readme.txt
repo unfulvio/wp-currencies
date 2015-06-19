@@ -1,15 +1,14 @@
 === WP Currencies ===
 Contributors: nekojira
-Donate link: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_flow&SESSION=SUJDJhsqyxThi-AbCT2HmIpMmBar3yAXDTYxlcNqruUIneC0_cxfT29SdIq&dispatch=5885d80a13c0db1f8e263663d3faee8d5402c249c5a2cfd4a145d37ec05e9a5e
-Tags: currency, currencies
-Requires at least: 3.6.0
-Tested up to: 4.2.1
-Stable tag: 1.3.0
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P64V9NTEYFKDL
+Tags: currency, currencies, exchange-rates, finance, ecommerce, woocommerce, wcml, acf, advanced-custom-fields 
+Requires at least: 4.0.0
+Tested up to: 4.2.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Currency data and updated currency exchange rates for WordPress.
-
 
 == Description ==
 
@@ -54,12 +53,12 @@ Install as you would do with any other WordPress plugin to get started.
 
 = Setting up the plugin =
 
-After installation, you will need to navigate to `Currencies` settings page in the `Settings` admin menu in your WordPress admin dashboard.
-From here you will have to specify your Open Exchange Rates API key (get yours at http://www.openexchangerates.org/) and hit the `Save Changes` button.
-You may as well specify an update frequency of your currency exchange rates. Default is once per week (7 days). If you set it to 0, the plugin will update your database hourly (please note that the free Open Exchange Rate plan has a maximum of 1,000 queries per month).
+After installation, navigate to `Currencies` settings page in the `Settings` admin menu in your WordPress admin dashboard.
+From here, enter your Open Exchange Rates API key - get yours at [http://www.openexchangerates.org/](http://www.openexchangerates.org/) and hit the `Save Changes` button.
 
-Please note that the currencies will be first pushed to your WordPress database at the first usage of any of the plugin functions after having entered a valid API key. You may need to refresh your application/page once.
+You may as well specify a different update frequency of your currency exchange rates. Default is once per week (7 days). You can adjust this according to your requirements. The faster it can update the currency rates is 1 hour - but it's generally not recommended even if the plugin doesn't consume much resources. Please also note that this plugin should not be treated as a mission critical tool for dealing with currencies (read the license and the disclaimer carefully). Please also note that the free Open Exchange Rate plan has a maximum of 1,000 queries per month at the time of writing this and you may run out of your quota if you exceed this number.
 
+**Important:** The currencies will be first pulled to your WordPress database at the first usage of any of the plugin functions, after having entered a valid API key. You may need to refresh your application just once.
 
 == Functions ==
 
@@ -152,6 +151,12 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 == Changelog ==
 
+= 1.4.0 = 
+* Better OOP rewrite of the whole plugin
+* PHP 5.4 is the minimum requirement now
+* Improved security and performance
+* Introduced new hooks (see documentation)
+
 = 1.3.0 =
 * Removed support for WCML (use the new WCML hooks instead)
 
@@ -192,8 +197,11 @@ Please note that if you make use of the API elsewhere and perform more requests,
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+PHP 5.4 is now the minimum PHP version required to run the plugin.
+
 = 1.3.0 =
-IMPORTANT: WCML support was removed since with most recent updates in WCML it broke WCML. WCML now offers hooks to alter rates output and you can filter those rates with WP Currencies functions in your theme.
+WCML support was dropped since with recent changes in WCML, WP Currencies was no longer compatible with it. However, WCML now offers hooks to alter its currency rates and you can use these with WP Currencies to dynamically change them.
 
 = 1.2.2 =
 Fixed a bug where the currencies table was not created in database; you may want to deactivate and reactivate the plugin after this upgrade if you were experiencing issues.

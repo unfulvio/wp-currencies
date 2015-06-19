@@ -1,3 +1,9 @@
+#### 1.4.0 (19 jun 2015)
+* Better OOP rewrite of the whole plugin
+* PHP 5.4 is the minimum requirement now
+* Improved security and performance
+* Introduced new hooks (see documentation)
+
 #### 1.3.0 (17 jun 2015)
 * Removed support for WCML - use [WCML hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) instead
 * Closes issue [#2](https://github.com/nekojira/wp-currencies/issues/2)

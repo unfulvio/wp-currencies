@@ -3,6 +3,8 @@
  * WP Currencies ACF 4 currency field
  *
  * Support for Advanced Custom Fields version 4.x
+ *
+ * @package WP_Currencies\ACF
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,105 +14,100 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WP Currencies ACF v4
  *
- * @package WP_Currencies
+ * Extends ACF 4.x with a Currency field.
+ *
+ * @since 1.1.0
  */
 class WP_Currency_ACF_v4 extends acf_field {
 
-	// vars
-	var $settings, // will hold info such as dir / path
-		$defaults; // will hold default field options
+	/**
+	 * Field settings.
+	 *
+	 * @since 1.1.0
+	 * @access public
+	 * @var array
+	 */
+	public $settings;
 
 	/**
-	 * Construct
-	 * Set name / label needed for actions / filters
+	 * Field defaults.
 	 *
-	 * @since    1.1.0
+	 * @since 1.1.0
+	 * @access public
+	 * @var array
 	 */
-	function __construct() {
+	public $defaults;
 
-		// vars from WP Currencies
-		$version = WP_Currencies::VERSION;
-		$wp_currencies = WP_Currencies::get_instance();
-		// textdomain
-		$textdomain = $wp_currencies->get_plugin_slug();
-		// field name
-		$this->name = 'currency';
-		$this->label = __( "Currency", $textdomain );
-		// field type
-		$this->category = __( "Choice",'acf' );
-		// field default settings
+	/**
+	 * Setup field data.
+	 *
+	 * @since 1.1.0
+	 */
+	public function __construct() {
+
+		// Field basic properties.
+		$this->name     = 'currency';
+		$this->label    = __( 'Currency', 'wp_currencies' );
+		$this->category = __( "Choice", 'acf' );
+
+		// Field default values.
 		$this->defaults = array(
 			'multiple' 		=>	0,		// disallow for multiple selection
 			'allow_null' 	=>	0,		// disallow null choice
 			'default_value'	=>	'USD'	// set US Dollar as default currency
 		);
 
-		// do not delete!
+		// Leave this here (ACF API).
 		parent::__construct();
 
-		// settings
+		// Field settings.
 		$this->settings = array(
-			'path' => apply_filters('acf/helpers/get_path', __FILE__),
-			'dir' => apply_filters('acf/helpers/get_dir', __FILE__),
-			'version' => $version
+			'path'    => apply_filters('acf/helpers/get_path', __FILE__),
+			'dir'     => apply_filters('acf/helpers/get_dir', __FILE__),
+			'version' => WP_CURRENCIES_VERSION
 		);
 
 	}
 
-	/*
-	*  create_options()
-	*
-	*  Create extra options for your field. This is rendered when editing a field.
-	*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field	- an array holding all the field's data
-	*/
-
-	function create_options( $field ) {
-
-		// vars from WP Currencies
-		$wp_currencies = WP_Currencies::get_instance();
-		// textdomain
-		$textdomain = $wp_currencies->get_plugin_slug();
+	/**
+	 * Create field options.
+	 *
+	 * Create extra options for your field. This is rendered when editing a field.
+	 *
+	 * @param array $field An array holding all the field's data.
+	 */
+	public function create_options( $field ) {
 
 		$key = $field['name'];
 
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e("Default Value",'acf'); ?></label>
-				<p class="description"><?php _e("Choose a default value", $textdomain ); ?></p>
+				<label><?php _e( "Default Value", 'acf' ); ?></label>
+				<p class="description"><?php _e( "Choose a default value", 'acf' ); ?></p>
 			</td>
 			<td>
-				<?php
-
-				do_action('acf/create_field', array(
-					'type'	=>	'currency',
-					'name'	=>	'fields['.$key.'][default_value]',
+				<?php do_action( 'acf/create_field', array(
+					'type'	=>  'currency',
+					'name'	=>	'fields[' . $key . '][default_value]',
 					'value'	=>	$field['default_value'],
 					'allow_null' => 1,
-				));
-
-				?>
+				)); ?>
 			</td>
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e("Allow Null?",'acf'); ?></label>
+				<label><?php _e( "Allow Null?", 'acf' ); ?></label>
 			</td>
 			<td>
 				<?php
-				do_action('acf/create_field', array(
+				do_action( 'acf/create_field', array(
 					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][allow_null]',
+					'name'	=>	'fields[' . $key . '][allow_null]',
 					'value'	=>	$field['allow_null'],
 					'choices'	=>	array(
-						1	=>	__("Yes",'acf'),
-						0	=>	__("No",'acf'),
+						1	=>	__( "Yes", 'acf' ),
+						0	=>	__( "No", 'acf' ),
 					),
 					'layout'	=>	'horizontal',
 				));
@@ -119,17 +116,17 @@ class WP_Currency_ACF_v4 extends acf_field {
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e("Select multiple values?",'acf'); ?></label>
+				<label><?php _e( "Select multiple values?", 'acf' ); ?></label>
 			</td>
 			<td>
 				<?php
-				do_action('acf/create_field', array(
+				do_action( 'acf/create_field', array(
 					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][multiple]',
+					'name'	=>	'fields[' . $key . '][multiple]',
 					'value'	=>	$field['multiple'],
 					'choices'	=>	array(
-						1	=>	__("Yes",'acf'),
-						0	=>	__("No",'acf'),
+						1	=>	__( "Yes", 'acf' ),
+						0	=>	__( "No", 'acf' ),
 					),
 					'layout'	=>	'horizontal',
 				));
@@ -141,21 +138,20 @@ class WP_Currency_ACF_v4 extends acf_field {
 	}
 
 	/**
-	 * Create field
-	 * Creates the HTML interface for your field
+	 * Create field.
 	 *
-	 * @param	array	$field	an array holding all the field's data
+	 * Creates the HTML interface for the Currency field.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @return	void
+	 * @param  array $field	an array holding all the field's data
 	 */
-	function create_field( $field ) {
+	public function create_field( $field ) {
 
 		// value must be array
-		if( !is_array($field['value']) ) {
+		if( !is_array( $field['value'] ) ) {
 			// perhaps this is a default value with new lines in it?
-			if( strpos($field['value'], "\n") !== false ) {
+			if( strpos( $field['value'], "\n") !== false ) {
 				// found multiple lines, explode it
 				$field['value'] = explode("\n", $field['value']);
 			} else {
@@ -163,7 +159,7 @@ class WP_Currency_ACF_v4 extends acf_field {
 			}
 		}
 		// trim value
-		$field['value'] = array_map('trim', $field['value']);
+		$field['value'] = array_map( 'trim', $field['value'] );
 
 		// multiple select
 		$multiple = '';
@@ -179,7 +175,7 @@ class WP_Currency_ACF_v4 extends acf_field {
 
 			// null option
 			if ( $field['allow_null'] ) {
-				echo '<option value="null">- ' . __("Select",'acf') . ' -</option>';
+				echo '<option value="null">- ' . __( "Select", 'acf' ) . ' -</option>';
 			}
 
 			// get currencies via WP Currencies
@@ -200,41 +196,32 @@ class WP_Currency_ACF_v4 extends acf_field {
 
 
 	/**
-	 * Format value for API
-	 * This filter is applied to the $value after it is loaded from the db and before it is passed back to the API functions such as the_field
+	 * Format value for API.
 	 *
-	 * @param	mixed	$value		the value which was loaded from the database
-	 * @param	int		$post_id	the $post_id from which the value was loaded
-	 * @param	array	$field		the field array holding all the field options
+	 * This filter is applied to the $value after it is loaded from the db and before it is passed back to the API functions such as the_field.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @return	mixed	$value	the modified value
+	 * @param  mixed $value	  The value which was loaded from the database.
+	 * @param  int	 $post_id The $post_id from which the value was loaded.
+	 * @param  array $field   The field array holding all the field options.
+	 *
+	 * @return mixed $value The modified value.
 	 */
 	function format_value_for_api( $value, $post_id, $field ) {
 
 		$currency = '';
 
 		if ( $value == 'null' || $value == '' || $value == false ) :
-
 			$currency = false;
-
 		else :
-
 			if ( is_array( $value ) ) {
-
 				foreach ( $value as $code ) :
-
 					$currency[$code] = get_currency( $code );
-
 				endforeach;
-
 			} else {
-
 				$currency[$value] = get_currency( $value );
-
 			}
-
 		endif;
 
 		return $currency;
