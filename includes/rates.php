@@ -142,6 +142,8 @@ class Rates {
 
 			endforeach;
 
+			do_action( 'wp_currencies_update' );
+
 		}
 
 		return $rates;
