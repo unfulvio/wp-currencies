@@ -71,44 +71,68 @@ class Rates {
 		$json = isset( $response['body'] ) ? json_decode( $response['body'] ) : $response;
 		$rates = isset( $json->rates ) ? (array) $json->rates : $json;
 
-		// Check if rates were fetched (expected an array with >100 currencies)
-		if ( is_array( $rates ) && count( $rates ) > 100 ) {
+		// Request failure
+		if ( ! $rates instanceof \WP_Error ) {
 
-			// Check if there are already values in db.
-			$stored_rates = $this->get_rates();
-			$action       = ! $stored_rates || is_null( $stored_rates ) ? 'insert' : 'update';
+			// Check if rates were fetched (expected an array with >100 currencies)
+			if ( is_array( $rates ) && count( $rates ) > 100 ) {
 
-			global $wpdb;
-			$table = $wpdb->prefix . 'currencies';
+				// Check if there are already values in db.
+				$stored_rates = $this->get_rates();
+				$action       = ! $stored_rates || is_null( $stored_rates ) ? 'insert' : 'update';
 
-			// Prepare currencies meta.
-			$data = $this->make_currency_data();
+				global $wpdb;
+				$table = $wpdb->prefix . 'currencies';
 
-			// Cycle rates and write to db.
-			foreach ( $rates as $currency_code => $rate_usd ) :
+				// Prepare currencies meta.
+				$data = $this->make_currency_data();
 
-				if ( is_string( $currency_code ) && $rate_usd && isset( $data[$currency_code] ) ) {
-					// Sanitize.
-					$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
-					$rate_usd      = floatval( $rate_usd );
-					// Currency data for current currency.
-					$currency_data = json_encode( (array) $data[$currency_code] );
-				} else {
-					// skip if invalid
-					continue;
-				}
+				// Cycle rates and write to db.
+				foreach ( $rates as $currency_code => $rate_usd ) :
 
-				// Update currencies with new values/rates.
-				if ( $action == 'update' ) {
+					if ( is_string( $currency_code ) && $rate_usd && isset( $data[ $currency_code ] ) ) {
+						// Sanitize.
+						$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
+						$rate_usd      = floatval( $rate_usd );
+						// Currency data for current currency.
+						$currency_data = json_encode( (array) $data[ $currency_code ] );
+					} else {
+						// skip if invalid
+						continue;
+					}
 
-					// The currency list has changed.
-					// @todo Improve checks for new currencies while updating db.
-					if ( count( $stored_rates ) != count( $rates ) ) {
-						// Better start anew.
-						$wpdb->delete(
-							$table, array( 'currency_code' => $currency_code, )
-						);
-						// Reinsert.
+					// Update currencies with new values/rates.
+					if ( $action == 'update' ) {
+
+						// The currency list has changed.
+						// @todo Improve checks for new currencies while updating db.
+						if ( count( $stored_rates ) != count( $rates ) ) {
+							// Better start anew.
+							$wpdb->delete(
+								$table, array( 'currency_code' => $currency_code, )
+							);
+							// Reinsert.
+							$wpdb->insert(
+								$table, array(
+									'currency_code' => $currency_code,
+									'currency_rate' => $rate_usd,
+									'currency_data' => $currency_data,
+									'timestamp'     => current_time( 'mysql' )
+								)
+							);
+							// The currency list hasn't changed.
+							// @todo Improve checks for new currencies while updating db.
+						} else {
+							$wpdb->update(
+								$table, array(
+								'currency_rate' => $rate_usd,
+								'currency_data' => $currency_data,
+								'timestamp'     => current_time( 'mysql' )
+							), array( 'currency_code' => $currency_code ) );
+						}
+
+						// Insert currencies and their rates in db.
+					} elseif ( $action == 'insert' ) {
 						$wpdb->insert(
 							$table, array(
 								'currency_code' => $currency_code,
@@ -117,32 +141,13 @@ class Rates {
 								'timestamp'     => current_time( 'mysql' )
 							)
 						);
-					// The currency list hasn't changed.
-					// @todo Improve checks for new currencies while updating db.
-					} else {
-						$wpdb->update(
-							$table, array(
-							'currency_rate' => $rate_usd,
-							'currency_data' => $currency_data,
-							'timestamp'     => current_time( 'mysql' )
-						), array( 'currency_code' => $currency_code ) );
 					}
 
-					// Insert currencies and their rates in db.
-				} elseif ( $action == 'insert' ) {
-					$wpdb->insert(
-						$table, array(
-							'currency_code' => $currency_code,
-							'currency_rate' => $rate_usd,
-							'currency_data' => $currency_data,
-							'timestamp'     => current_time( 'mysql' )
-						)
-					);
-				}
+				endforeach;
 
-			endforeach;
+				do_action( 'wp_currencies_update' );
 
-			do_action( 'wp_currencies_update' );
+			}
 
 		}
 
@@ -167,24 +172,30 @@ class Rates {
 		$currency_data = wp_remote_get( $this->currencies_list );
 		$currency_data = isset( $currency_data['body'] ) ? (array) json_decode( $currency_data['body'] ) : $currency_data;
 
-		if ( is_array( $currency_data ) && count( $currency_data ) > 100 ) {
+		// Check if remote request didn't fail.
+		if ( ! $currency_data instanceof \WP_Error ) {
 
-			foreach( $currency_data as $currency_code => $currency_name ) {
+			// Expecting an array with over 100 currencies.
+			if ( is_array( $currency_data ) && count( $currency_data ) > 100 ) {
 
-				if ( ! is_string( $currency_code ) || ! is_string( $currency_name ) ) {
-					continue;
+				foreach ( $currency_data as $currency_code => $currency_name ) {
+
+					if ( ! is_string( $currency_code ) || ! is_string( $currency_name ) ) {
+						continue;
+					}
+
+					$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
+
+					$currencies[ $currency_code ] = array(
+						'name'          => sanitize_text_field( $currency_name ),
+						'symbol'        => $currency_code,
+						'position'      => 'before',
+						'decimals'      => 2,
+						'thousands_sep' => ',',
+						'decimals_sep'  => '.'
+					);
+
 				}
-
-				$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
-
-				$currencies[$currency_code] = array(
-					'name' 				=> sanitize_text_field( $currency_name ),
-					'symbol'			=> $currency_code,
-					'position' 			=> 'before',
-					'decimals' 			=> 2,
-					'thousands_sep'    	=> ',',
-					'decimals_sep'      => '.'
-				);
 
 			}
 
@@ -241,7 +252,7 @@ class Rates {
 		$currencies = array();
 		if ( $results && is_array( $results ) ) {
 			foreach ( $results as $row ) {
-				$currencies[$row['currency_code']] = json_decode( $row['currency_data'] );
+				$currencies[$row['currency_code']] = (array) json_decode( $row['currency_data'] );
 			}
 		}
 
