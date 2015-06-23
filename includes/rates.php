@@ -75,13 +75,13 @@ class Rates {
 		$json = isset( $response['body'] ) ? json_decode( $response['body'] ) : $response;
 		$rates = isset( $json->rates ) ? (array) $json->rates : $json;
 
-		// Request failure
+		// Check for request failure.
 		if ( ! $rates instanceof \WP_Error ) {
 
 			// Check if rates were fetched (expected an array with >100 currencies)
 			if ( is_array( $rates ) && count( $rates ) > 100 ) {
 
-				// Check if there are already values in db.
+				// Check whether there are already values in db.
 				$stored_rates = $this->get_rates();
 				$action       = ! $stored_rates || is_null( $stored_rates ) ? 'insert' : 'update';
 
@@ -189,8 +189,8 @@ class Rates {
 					}
 
 					$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
-
-					$currencies[ $currency_code ] = array(
+					// Defaults.
+					$currencies[$currency_code] = array(
 						'name'          => sanitize_text_field( $currency_name ),
 						'symbol'        => $currency_code,
 						'position'      => 'before',
@@ -205,6 +205,7 @@ class Rates {
 
 		}
 
+		// Format meta for each currency.
 		include_once WP_CURRENCIES_INC . 'currencies/currency-data.php';
 		$currency_data = wp_currencies_format_currency_data( $currencies );
 
