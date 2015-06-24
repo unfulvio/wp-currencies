@@ -37,7 +37,7 @@ class Settings {
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
 		// Update wp_cron job schedule when settings are updated
-		add_action( 'update_option_wp_currencies_settings', array( $this, 'updated_options' ), 10, 2 );
+		add_action( 'updated_option', array( $this, 'updated_options' ), 10, 3 );
 
 	}
 
@@ -205,27 +205,25 @@ class Settings {
 	 *
 	 * @since   1.4.0
 	 *
-	 * @param $old_value
-	 * @param $new_value
+	 * @param string $option
+	 * @param string $old_value
+	 * @param string $new_value
 	 */
-	public function updated_options( $old_value, $new_value ) {
-
-		// Set new schedule.
-		if ( isset( $new_value['update_interval'] ) ) {
-			if ( ! empty( $new_value['update_interval'] ) ) {
-				wp_clear_scheduled_hook( 'wp_currencies_update' );
-				if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
-					wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
-				} else {
-					wp_reschedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
+	public function updated_options( $option, $old_value, $new_value ) {
+		// Are we on the right option?
+		if ( $option == 'wp_currencies_settings' ) {
+			// Set new schedule.
+			if ( isset( $new_value['update_interval'] ) || isset( $new_value['api_key'] ) ) {
+				if ( ! empty( $new_value['update_interval'] ) || ! empty( $old_value['update_interval'] ) ) {
+					// Has this ever been scheduled before?
+					if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
+						wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
+					} else {
+						wp_reschedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
+					}
 				}
 			}
 		}
-
-		// Update rates.
-		$currency_rates = new Rates();
-		$currency_rates->update();
-
 	}
 
 }
