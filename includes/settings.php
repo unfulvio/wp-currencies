@@ -213,14 +213,19 @@ class Settings {
 		// Are we on the right option?
 		if ( $option == 'wp_currencies_settings' ) {
 			// Set new schedule.
-			if ( isset( $new_value['update_interval'] ) || isset( $new_value['api_key'] ) ) {
-				if ( ! empty( $new_value['update_interval'] ) || ! empty( $old_value['update_interval'] ) ) {
+			if ( isset( $new_value['update_interval'] ) || isset( $old_value['update_interval'] ) ) {
+				$wp_currencies = get_option( 'wp_currencies_settings' );
+				$api_key = isset( $wp_currencies['api_key'] ) ? $wp_currencies['api_key'] : '';
+				if ( ! empty( $api_key ) ) {
 					// Has this ever been scheduled before?
 					if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
 						wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
 					} else {
 						wp_reschedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
 					}
+					// Fire once.
+					$rates = new Rates();
+					$rates->update();
 				}
 			}
 		}
