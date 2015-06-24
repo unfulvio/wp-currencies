@@ -223,9 +223,6 @@ class Settings {
 					} else {
 						wp_reschedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
 					}
-					// Fire once.
-					$rates = new Rates();
-					$rates->update();
 				}
 			}
 		}
