@@ -1,3 +1,6 @@
+#### 1.4.1 (24 jun 2015)
+* Fixes a critical bug from 1.4.0 where too many currency update requests were fired. Please update.
+
 #### 1.4.0 (19 jun 2015)
 * Better OOP rewrite of the whole plugin
 * PHP 5.4 is the minimum requirement now
