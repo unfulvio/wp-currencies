@@ -19,7 +19,7 @@ This plugin is intended for WordPress backend and frontend developers who want t
 * Packed with a handy [PHP functions library](https://github.com/nekojira/wp-currencies/wiki/Functions) to retrieve currency data and exchange rates or perform currency conversions on the fly via PHP or [Ajax](https://github.com/nekojira/wp-currencies/wiki/Ajax)
 * Registers new [JSON REST API](https://wordpress.org/plugins/json-rest-api/) [routes](https://github.com/nekojira/wp-currencies/wiki/WP-REST-API) for currency data and exchange
 * Adds a [Currency Field](https://github.com/nekojira/wp-currencies/wiki/Advanced-Custom-Field) to [Advanced Custom Fields](https://www.advancedcustomfields.com/) plugin, if installed
-* Provides two [shortcodes](https://github.com/nekojira/wp-currencies/wiki/Shortcodes) to print currency data or conversion rates from a WordPress post or page
+* Provides [Shortcodes](https://github.com/nekojira/wp-currencies/wiki/Shortcodes) to print currency data or conversion rates from a WordPress post or page
 * Comes complete with [action and filter hooks](https://github.com/nekojira/wp-currencies/wiki/Hooks) for extensions and customisations
 
 ## Requirements
