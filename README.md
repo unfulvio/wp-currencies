@@ -16,8 +16,8 @@ This plugin is intended for WordPress backend and frontend developers who want t
 * Imports rates and currency data into a local database table
 * Periodically and automatically updates currency rates by set cron intervals
 * If you use [WooCommerce](https://github.com/woothemes/woocommerce) and [WPML WooCommerce Multilingual](https://wordpress.org/plugins/woocommerce-multilingual/), you can use [WCML hooks](https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/) together with WP Currencies functions to change currency rates on the fly.
-* Library of PHP functions to retrieve currency data and exchange rates or perform currency conversions via PHP or Ajax
-* Registers new [JSON REST API](https://wordpress.org/plugins/json-rest-api/) routes with currency and exchange rates data
+* Packed with a handy PHP functions library to retrieve currency data and exchange rates or perform currency conversions on the fly via PHP or Ajax
+* Registers new [JSON REST API](https://wordpress.org/plugins/json-rest-api/) routes with currency data and exchange rates
 * Adds a *Currency Field* to [Advanced Custom Fields](https://www.advancedcustomfields.com/) plugin, if installed
 * Provides 2 shortcodes to print currency data or conversion rates from a WordPress post or page
 * Comes with [action and filter hooks](https://github.com/nekojira/wp-currencies/wiki/Hooks)
