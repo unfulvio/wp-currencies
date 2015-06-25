@@ -219,6 +219,7 @@ class Settings {
 			$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
 			if ( ! empty( $api_key ) ) {
 				wp_schedule_event( time(), esc_attr( $new_value['update_interval'] ), 'wp_currencies_update' );
+				do_action( 'wp_currencies_rescheduled_update', time(), esc_attr( $new_value['update_interval'] ) );
 			}
 
 		}
