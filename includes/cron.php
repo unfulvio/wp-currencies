@@ -39,8 +39,10 @@ class Cron {
 	 * @since 1.4.0
 	 */
 	public function update_currencies() {
-		$rates = new Rates();
-		$rates->update();
+		if ( defined( 'DOING_CRON' ) ) {
+			$rates = new Rates();
+			$rates->update();
+		}
 	}
 
 	/**
