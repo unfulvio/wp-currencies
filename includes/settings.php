@@ -220,13 +220,7 @@ class Settings {
 				// Makes sure there's an API key (won't be able to tell if valid, but at least is not empty).
 				$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
 				if ( ! empty( $api_key ) ) {
-
-					if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
-						wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
-					} else {
-						wp_reschedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
-					}
-
+					wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
 				}
 
 			}
