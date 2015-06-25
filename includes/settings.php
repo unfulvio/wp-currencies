@@ -37,7 +37,7 @@ class Settings {
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
 		// Update wp_cron job schedule when settings are updated
-		add_action( 'updated_option', array( $this, 'updated_options' ), 10, 3 );
+		add_action( 'update_option_wp_currencies_settings', array( $this, 'updated_option' ), 10, 2 );
 
 	}
 
@@ -51,7 +51,7 @@ class Settings {
 	 */
 	public function add_action_links( $links ) {
 		return array_merge(
-			array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=wp_currencies' ) . '">' . __( 'Currencies', $this->plugin_slug ) . '</a>' ),
+			array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=wp_currencies' ) . '">' . __( 'Currencies', 'wp_currencies' ) . '</a>' ),
 			$links
 		);
 	}
@@ -205,25 +205,22 @@ class Settings {
 	 *
 	 * @since   1.4.0
 	 *
-	 * @param string $option
 	 * @param string $old_value
 	 * @param string $new_value
 	 */
-	public function updated_options( $option, $old_value, $new_value ) {
+	public function updated_option( $old_value, $new_value ) {
 
-		// Are we on the right option? Is there an update?
-		if ( $option == 'wp_currencies_settings' ) {
-			if ( $old_value != $new_value ) {
+		// Is there an update?
+		if ( $old_value != $new_value ) {
 
-				wp_clear_scheduled_hook( 'wp_currencies_update' );
+			wp_clear_scheduled_hook( 'wp_currencies_update' );
 
-				// Makes sure there's an API key (won't be able to tell if valid, but at least is not empty).
-				$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
-				if ( ! empty( $api_key ) ) {
-					wp_schedule_event( time(), $new_value['update_interval'], 'wp_currencies_update' );
-				}
-
+			// Makes sure there's an API key (won't be able to tell if valid, but at least is not empty).
+			$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
+			if ( ! empty( $api_key ) ) {
+				wp_schedule_event( time(), esc_attr( $new_value['update_interval'] ), 'wp_currencies_update' );
 			}
+
 		}
 
 	}
