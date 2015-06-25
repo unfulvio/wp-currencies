@@ -73,17 +73,17 @@ class Rates {
 		// Get the currencies rates (default base currency is US dollars).
 		$response = wp_remote_get( $this->currencies_rates . $option['api_key'] );
 		$json = isset( $response['body'] ) ? json_decode( $response['body'] ) : $response;
-		$rates = isset( $json->rates ) ? (array) $json->rates : $json;
+		$new_rates = isset( $json->rates ) ? (array) $json->rates : $json;
 
 		// Check for request failure.
-		if ( ! $rates instanceof \WP_Error ) {
+		if ( ! $new_rates instanceof \WP_Error ) {
 
 			// Check if rates were fetched (expected an array with >100 currencies)
-			if ( is_array( $rates ) && count( $rates ) > 100 ) {
+			if ( is_array( $new_rates ) && count( $new_rates ) > 100 ) {
 
 				// Check whether there are already values in db.
-				$stored_rates = $this->get_rates();
-				$action       = ! $stored_rates || is_null( $stored_rates ) ? 'insert' : 'update';
+				$old_rates  = $this->get_rates();
+				$action     = ! $old_rates || is_null( $old_rates ) ? 'insert' : 'update';
 
 				global $wpdb;
 				$table = $wpdb->prefix . 'currencies';
@@ -92,7 +92,7 @@ class Rates {
 				$data = $this->make_currency_data();
 
 				// Cycle rates and write to db.
-				foreach ( $rates as $currency_code => $rate_usd ) :
+				foreach ( $new_rates as $currency_code => $rate_usd ) :
 
 					if ( is_string( $currency_code ) && $rate_usd && isset( $data[ $currency_code ] ) ) {
 						// Sanitize.
@@ -110,7 +110,7 @@ class Rates {
 
 						// The currency list has changed.
 						// @todo Improve checks for new currencies while updating db.
-						if ( count( $stored_rates ) != count( $rates ) ) {
+						if ( count( $old_rates ) != count( $new_rates ) ) {
 							// Better start anew.
 							$wpdb->delete(
 								$table, array( 'currency_code' => $currency_code, )
@@ -149,13 +149,13 @@ class Rates {
 
 				endforeach;
 
-				do_action( 'wp_currencies_update' );
+				do_action( 'wp_currencies_updated', $old_rates, $new_rates, time() );
 
 			}
 
 		}
 
-		return $rates;
+		return $new_rates;
 	}
 
 	/**

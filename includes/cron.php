@@ -40,6 +40,7 @@ class Cron {
 	 */
 	public function update_currencies() {
 		if ( defined( 'DOING_CRON' ) ) {
+			do_action( 'wp_currencies_before_update', time() );
 			$rates = new Rates();
 			$rates->update();
 		}
