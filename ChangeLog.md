@@ -1,5 +1,9 @@
+#### 1.4.3 (26 jun 2015)
+* 'DOING_CRON' wrapper check added to wp cron callback action to prevent firing too many updates
+* Added new action hooks (see [documentation](https://github.com/nekojira/wp-currencies/wiki/Hooks))
+
 #### 1.4.1 (24 jun 2015)
-* Fixes a critical bug from 1.4.0 where too many currency update requests were fired. Please update.
+* Fixes a critical bug from 1.4.0 where too many currency update requests were fired - please update
 
 #### 1.4.0 (19 jun 2015)
 * Better OOP rewrite of the whole plugin

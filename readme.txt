@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: currency, currencies, exchange-rates, finance, ecommerce, woocommerce, wcml, acf, advanced-custom-fields 
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.4.1
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,8 +107,12 @@ This could be related to `cron` not working properly in your host. Please refer 
 
 == Changelog ==
 
+= 1.4.3 =
+* 'DOING_CRON' wrapper check added to wp cron callback action to prevent firing too many updates
+* Added new action hooks (see documentation)
+
 = 1.4.1 = 
-* Fixes a critical bug from 1.4.0 where too many currency update requests were fired. Please update.
+* Fixes a critical bug from 1.4.0 where too many currency update requests were fired - please update
 
 = 1.4.0 = 
 * Better OOP rewrite of the whole plugin
@@ -155,6 +159,9 @@ This could be related to `cron` not working properly in your host. Please refer 
 
 
 == Upgrade Notice ==
+
+= 1.4.3 =
+Further improved the wp cron mechanism against firing too many requests. Please update asap.
 
 = 1.4.1 =
 Fixes a critical bug in 1.4.0 where too many requests were fired. Please update. 
