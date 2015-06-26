@@ -98,11 +98,16 @@ class WP_Currency_ACF_v5 extends acf_field {
 	 */
 	function render_field( $field ) {
 
-		// convert value to array
-		$field['value'] = acf_force_type_array($field['value']);
+		if ( ! is_array( $field['value'] ) ) {
+			if ( $field['value'] && is_string( $field['value'] ) ) {
+				$field['value'] = explode( ',', $field['value'] );
+			} else {
+				$field['value'] = array( $field['value'] );
+			}
+		}
 
-		// add empty value (allows '' to be selected)
-		if( empty($field['value']) ){
+		if ( empty( $field['value'] ) ) {
+			// add empty value (allows '' to be selected)
 			$field['value'][''] = '';
 		}
 
