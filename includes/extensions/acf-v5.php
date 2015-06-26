@@ -101,7 +101,7 @@ class WP_Currency_ACF_v5 extends acf_field {
 		if ( ! is_array( $field['value'] ) ) {
 			if ( $field['value'] && is_string( $field['value'] ) ) {
 				$field['value'] = explode( ',', $field['value'] );
-			} else {
+			} elseif ( ! empty( $field['value'] ) ) {
 				$field['value'] = array( $field['value'] );
 			}
 		}
