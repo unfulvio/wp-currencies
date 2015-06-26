@@ -1,3 +1,6 @@
+#### 1.4.4 (26 jun 2015)
+* Removed deprecated code in ACF 5.x support that was triggering an error
+
 #### 1.4.3 (26 jun 2015)
 * 'DOING_CRON' wrapper check added to wp cron callback action to prevent firing too many updates
 * Added new action hooks (see [documentation](https://github.com/nekojira/wp-currencies/wiki/Hooks))
