@@ -1,5 +1,6 @@
 ### 1.4.6 (29 jun 2015)
 * Further improvements in handling wp cron and scheduled events hooks
+* Commented out 'DOING_CRON' check (might not work if using alternate cron or with some object caching)
 * Introduced `wp_currencies_update()` function
 
 #### 1.4.4 (26 jun 2015)
