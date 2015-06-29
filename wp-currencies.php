@@ -269,9 +269,6 @@ if ( ! function_exists( 'wp_currencies' ) ) {
 	 * Normally this function works as a wp cron scheduled event hook callback.
 	 * However, if called directly will reschedule the event triggering an update.
 	 *
-	 * This was originally implemented because wp_schedule_event() can't use an array
-	 * as argument for $hook callback - and therefore wouldn't have worked with OOP code.
-	 *
 	 * @internal
 	 *
 	 * @since 1.4.5
