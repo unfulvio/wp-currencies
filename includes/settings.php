@@ -217,9 +217,16 @@ class Settings {
 
 			// Makes sure there's an API key (won't be able to tell if valid, but at least is not empty).
 			$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
+
 			if ( ! empty( $api_key ) ) {
-				wp_schedule_event( time(), esc_attr( $new_value['update_interval'] ), array( 'WP_Currencies\Cron', 'update_currencies' ) );
+
+				$interval = isset( $new_value['update_interval'] ) ? $new_value['update_interval'] : ( isset( $old_value['update_interval'] ) ? $old_value['update_interval'] : 'weekly' );
+
+				$cron = new Cron();
+				$cron->schedule_updates( $api_key, $interval );
+
 				do_action( 'wp_currencies_rescheduled_update', time(), esc_attr( $new_value['update_interval'] ) );
+
 			}
 
 		}

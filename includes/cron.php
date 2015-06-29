@@ -32,13 +32,11 @@ class Cron {
 	/**
 	 * Update currencies.
 	 *
-	 * Callback for 'wp_currencies_update' wp-cron job.
-	 *
-	 * @uses WP_Currencies\Rates\update() to update the currencies in db.
+	 * Callback for 'wp_currencies_update' action.
 	 *
 	 * @since 1.4.0
 	 */
-	public static function update_currencies() {
+	public function update_currencies() {
 		if ( defined( 'DOING_CRON' ) ) {
 			do_action( 'wp_currencies_before_update', time() );
 			$rates = new Rates();
@@ -47,24 +45,40 @@ class Cron {
 	}
 
 	/**
+	 * Update currencies scheduled event callback.
+	 *
+	 * Fires the 'wp_currencies_update' action.
+	 *
+	 * @since 1.4.5
+	 */
+	public function cron_update_currencies() {
+		do_action( 'wp_currencies_update' );
+	}
+
+	/**
 	 * Schedule currency rates updates.
 	 *
 	 * Schedules a wp_cron job to update currencies at set interval.
 	 *
 	 * @since 1.4.0
+	 *
+	 * @param string $api_key
+	 * @param string $interval
 	 */
-	public function schedule_updates() {
+	public function schedule_updates( $api_key = '', $interval = '' ) {
 
-		$option = get_option( 'wp_currencies_settings' );
+		if ( empty( $api_key ) || empty(  $interval ) ) {
+			$option = get_option( 'wp_currencies_settings' );
+			$api_key = isset( $option['api_key'] ) ? $option['api_key'] : '';
+			$interval = isset( $option['update_interval'] ) ? $option['update_interval'] : '';
+		}
 
-		if ( $option['api_key'] ) {
-
-			$interval = $option['update_interval'] ? $option['update_interval'] : 'weekly';
+		if ( $api_key && $interval ) {
 
 			if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
-				wp_schedule_event( time(), $interval, array( __CLASS__, 'update_currencies' ) );
+				wp_schedule_event(   time(), $interval, array( $this, 'cron_update_currencies' ) );
 			} else {
-				wp_reschedule_event( time(), $interval, array( __CLASS__, 'update_currencies' ) );
+				wp_reschedule_event( time(), $interval, array( $this, 'cron_update_currencies' ) );
 			}
 
 		}

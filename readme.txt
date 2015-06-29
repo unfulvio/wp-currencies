@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: currency, currencies, exchange-rates, finance, ecommerce, woocommerce, wcml, acf, advanced-custom-fields 
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,9 @@ This could be related to `cron` not working properly in your host. Please refer 
 
 
 == Changelog ==
+
+= 1.4.5 =
+* Further improvements in handling wp cron and scheduled events hooks 
 
 = 1.4.4 =
 * Removed deprecated code in ACF 5.x support that was triggering an error
