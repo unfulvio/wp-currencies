@@ -37,11 +37,11 @@ class Cron {
 	 * @since 1.4.0
 	 */
 	public function update_currencies() {
-		if ( defined( 'DOING_CRON' ) ) {
+		//if ( defined( 'DOING_CRON' ) ) {
 			do_action( 'wp_currencies_before_update', time() );
 			$rates = new Rates();
 			$rates->update();
-		}
+		//}
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Cron {
 	 *
 	 * Fires the 'wp_currencies_update' action.
 	 *
-	 * @since 1.4.5
+	 * @since 1.4.6
 	 */
 	public function cron_update_currencies() {
 		do_action( 'wp_currencies_update' );
@@ -76,9 +76,9 @@ class Cron {
 		if ( $api_key && $interval ) {
 
 			if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
-				wp_schedule_event(   time(), $interval, array( $this, 'cron_update_currencies' ) );
+				wp_schedule_event(   time(), $interval, 'wp_currencies_update' );
 			} else {
-				wp_reschedule_event( time(), $interval, array( $this, 'cron_update_currencies' ) );
+				wp_reschedule_event( time(), $interval, 'wp_currencies_update' );
 			}
 
 		}

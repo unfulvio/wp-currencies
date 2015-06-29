@@ -1,5 +1,6 @@
-### 1.4.5 (29 jun 2015)
+### 1.4.6 (29 jun 2015)
 * Further improvements in handling wp cron and scheduled events hooks
+* Introduced `wp_currencies_update()` function
 
 #### 1.4.4 (26 jun 2015)
 * Removed deprecated code in ACF 5.x support that was triggering an error

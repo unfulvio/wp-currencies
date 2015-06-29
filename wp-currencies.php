@@ -3,7 +3,7 @@
  * Plugin Name: WP Currencies
  * Plugin URI:  https://github.com/nekojira/wp-currencies
  * Description: Currency data and updated currency exchange rates for WordPress.
- * Version:     1.4.5
+ * Version:     1.4.6
  * Author:      Fulvio Notarstefano
  * Author URI:  https://github.com/nekojira
  * License:     GPLv2+
@@ -264,6 +264,24 @@ endif;
 if ( ! function_exists( 'wp_currencies' ) ) {
 
 	/**
+	 * Update currencies and exchange rates.
+	 *
+	 * Normally this function works as a wp cron scheduled event hook callback.
+	 * However, if called directly will reschedule the event triggering an update.
+	 *
+	 * This was originally implemented because wp_schedule_event() can't use an array
+	 * as argument for $hook callback - and therefore wouldn't have worked with OOP code.
+	 *
+	 * @internal
+	 *
+	 * @since 1.4.5
+	 */
+	function wp_currencies_update() {
+		$cron = new WP_Currencies\Cron();
+		$cron->cron_update_currencies();
+	}
+
+	/**
 	 * WP Currencies.
 	 *
 	 * @since 1.4.0
@@ -277,6 +295,7 @@ if ( ! function_exists( 'wp_currencies' ) ) {
 
 	// Instantiate.
 	wp_currencies();
+
 
 } else {
 
