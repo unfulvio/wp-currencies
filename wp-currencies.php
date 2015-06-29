@@ -266,8 +266,9 @@ if ( ! function_exists( 'wp_currencies' ) ) {
 	/**
 	 * Update currencies and exchange rates.
 	 *
-	 * Normally this function works as a wp cron scheduled event hook callback.
-	 * However, if called directly will reschedule the event triggering an update.
+	 * Normally works as a wp cron scheduled event hook callback.
+	 * You would't normally want to call this directly,
+	 * but if you do, you will force trigger an update.
 	 *
 	 * @internal
 	 *
