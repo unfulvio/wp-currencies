@@ -26,7 +26,7 @@ class Cron {
 	 */
 	public function __construct() {
 		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ), 10, 1 ) ;
-		add_action( 'wp_currencies_update', array( $this, 'update_currencies' ) );
+		add_action( 'wp_currencies_update', array( __CLASS__, 'update_currencies' ) );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Cron {
 	 *
 	 * @since 1.4.0
 	 */
-	public function update_currencies() {
+	public static function update_currencies() {
 		if ( defined( 'DOING_CRON' ) ) {
 			do_action( 'wp_currencies_before_update', time() );
 			$rates = new Rates();
@@ -56,12 +56,17 @@ class Cron {
 	public function schedule_updates() {
 
 		$option = get_option( 'wp_currencies_settings' );
-		$interval = $option['update_interval'] ? $option['update_interval'] : 'weekly';
 
-		if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
-			wp_schedule_event(   time(), $interval, 'wp_currencies_update' );
-		} else {
-			wp_reschedule_event( time(), $interval, 'wp_currencies_update' );
+		if ( $option['api_key'] ) {
+
+			$interval = $option['update_interval'] ? $option['update_interval'] : 'weekly';
+
+			if ( ! wp_next_scheduled( 'wp_currencies_update' ) ) {
+				wp_schedule_event( time(), $interval, array( __CLASS__, 'update_currencies' ) );
+			} else {
+				wp_reschedule_event( time(), $interval, array( __CLASS__, 'update_currencies' ) );
+			}
+
 		}
 
 	}

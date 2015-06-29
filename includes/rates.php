@@ -153,6 +153,14 @@ class Rates {
 
 			}
 
+		} else {
+
+			// @todo When update fails, perhaps we can read errors from wp_remote_get request.
+			trigger_error(
+				__( 'WP Currencies: there was a problem while trying to update currencies and exchange rates. Have you entered a valid API key? If yes, you might want to check your usage quota.', 'wp_currencies' ),
+				E_USER_WARNING
+			);
+
 		}
 
 		return $new_rates;
@@ -221,6 +229,8 @@ class Rates {
 	 */
 	public function get_rates() {
 
+		// @todo Check if using transients while doing get_rates() improves speed.
+
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'currencies';
 
@@ -231,7 +241,7 @@ class Rates {
 		$rates = array();
 		if ( $results && is_array( $results ) ) {
 			foreach ( $results as $row ) {
-				$rates[$row['currency_code']] = floatval( $row['currency_rate'] );
+				$rates[strtoupper($row['currency_code'])] = floatval( $row['currency_rate'] );
 			}
 		}
 
@@ -246,6 +256,8 @@ class Rates {
 	 * @return array Associative array with currency codes for keys and currency information for values.
 	 */
 	public function get_currencies() {
+
+		// @todo Check if using transients while doing get_currencies() improves speed.
 
 		global $wpdb;
 		$table = $wpdb->prefix . 'currencies';
