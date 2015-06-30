@@ -45,12 +45,12 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 
 				// Brazilian Real
 				$data[$currency_code] = array(
-					'name'          => $currency_data['name'],
-					'symbol'        => 'R&#36;',
-					'position'      => 'after',
-					'decimals'      => 2,
-					'thousands_sep' => '&nbsp;',
-					'decimals_sep'  => '.',
+					'name' => $currency_data['name'],
+					'symbol' => 'R&#36',
+					'position' => 'before',
+					'decimals' => 2,
+					'thousands_sep' => '.',
+					'decimals_sep' => ',',
 				);
 
 			} elseif ( $currency_code == 'BND' ) {
