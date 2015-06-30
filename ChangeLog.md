@@ -2,6 +2,7 @@
 * Further improvements in handling wp cron and scheduled events hooks
 * Commented out 'DOING_CRON' check (might not work if using alternate cron or with some object caching)
 * Introduced `wp_currencies_update()` function
+* props @StewieGm @extrapixel for feedback
 
 #### 1.4.4 (26 jun 2015)
 * Removed deprecated code in ACF 5.x support that was triggering an error
