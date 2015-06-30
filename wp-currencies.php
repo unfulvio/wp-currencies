@@ -272,7 +272,7 @@ if ( ! function_exists( 'wp_currencies' ) ) {
 	 *
 	 * @internal
 	 *
-	 * @since 1.4.5
+	 * @since 1.4.6
 	 */
 	function wp_currencies_update() {
 		$cron = new WP_Currencies\Cron();
