@@ -210,24 +210,19 @@ class Settings {
 	 */
 	public function updated_option( $old_value, $new_value ) {
 
-		// Is there an update?
-		if ( $old_value != $new_value ) {
+		wp_clear_scheduled_hook( 'wp_currencies_update' );
 
-			wp_clear_scheduled_hook( 'wp_currencies_update' );
+		// Makes sure there's an API key (won't be able to tell if valid or not at this time).
+		$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
 
-			// Makes sure there's an API key (won't be able to tell if valid, but at least is not empty).
-			$api_key = isset( $new_value['api_key'] ) ? $new_value['api_key'] : ( isset( $old_value['api_key'] ) ? $old_value['api_key'] : '' );
+		if ( ! empty( $api_key ) ) {
 
-			if ( ! empty( $api_key ) ) {
+			$interval = isset( $new_value['update_interval'] ) ? $new_value['update_interval'] : ( isset( $old_value['update_interval'] ) ? $old_value['update_interval'] : 'weekly' );
 
-				$interval = isset( $new_value['update_interval'] ) ? $new_value['update_interval'] : ( isset( $old_value['update_interval'] ) ? $old_value['update_interval'] : 'weekly' );
+			$cron = new Cron();
+			$cron->schedule_updates( $api_key, $interval );
 
-				$cron = new Cron();
-				$cron->schedule_updates( $api_key, $interval );
-
-				do_action( 'wp_currencies_rescheduled_update', time(), esc_attr( $new_value['update_interval'] ) );
-
-			}
+			do_action( 'wp_currencies_rescheduled_update', time(), esc_attr( $interval ) );
 
 		}
 
