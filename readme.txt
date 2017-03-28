@@ -107,6 +107,9 @@ This could be related to `cron` not working properly in your host. Please refer 
 
 == Changelog ==
 
+= 1.4.7 =
+* PHP 7.1 compatibility fixes
+
 = 1.4.6 =
 * Further improvements in handling wp cron and scheduled events hooks
 * Commented out 'DOING_CRON' check (might not work if using alternate cron or with some object caching)
