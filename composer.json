@@ -1,7 +1,7 @@
 {
-	"name": "nekojira/wp-currencies",
+	"name": "unfulvio/wp-currencies",
 	"description": "Manage currency data and exchange rates from within WordPress.",
-	"version": "1.4.6",
+	"version": "1.4.7",
 	"type": "wordpress-plugin",
 	"keywords": ["wordpress","currency","currencies","rates","exchange-rates","openexchangerates"],
 	"homepage": "https://github.com/nekojira/wp-currencies",
@@ -10,7 +10,7 @@
 		{
 			"name": "Fulvio Notarstefano",
 			"email": "fulvio.notarstefano@gmail.com",
-      "homepage": "https://github.com/nekojira",
+      "homepage": "https://github.com/unfulvio",
 			"role": "Developer"
 		}
 	],

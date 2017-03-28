@@ -33,7 +33,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
 
 		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . 'wp_currencies.php' );
+		$plugin_basename = plugin_basename( plugin_dir_path( realpath( __DIR__ ) ) . 'wp_currencies.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
 		// Update wp_cron job schedule when settings are updated
@@ -120,18 +120,18 @@ class Settings {
 
 		?>
 		<label for="update_interval">
-			<?php _e( 'Rates update frequency:', 'wp_currencies' ); ?>
+			<?php esc_html_e( 'Rates update frequency:', 'wp_currencies' ); ?>
 			<select name="wp_currencies_settings[update_interval]" id="update_interval">
-				<option value="hourly"   <?php selected( $update_frequency, 'hourly',   true ); ?>><?php _e( 'Hourly',  'wp_currencies' ); ?></option>
-				<option value="daily"    <?php selected( $update_frequency, 'daily',    true ); ?>><?php _e( 'Daily',   'wp_currencies' ); ?></option>
-				<option value="weekly"   <?php selected( $update_frequency, 'weekly',   true ); ?>><?php _e( 'Weekly',  'wp_currencies' ); ?></option>
-				<option value="biweekly" <?php selected( $update_frequency, 'biweekly', true ); ?>><?php _e( 'Biweekly','wp_currencies' ); ?></option>
-				<option value="monthly"  <?php selected( $update_frequency, 'monthly',  true ); ?>><?php _e( 'Monthly', 'wp_currencies' ); ?></option>
+				<option value="hourly"   <?php selected( $update_frequency, 'hourly',   true ); ?>><?php esc_html_e( 'Hourly',  'wp_currencies' ); ?></option>
+				<option value="daily"    <?php selected( $update_frequency, 'daily',    true ); ?>><?php esc_html_e( 'Daily',   'wp_currencies' ); ?></option>
+				<option value="weekly"   <?php selected( $update_frequency, 'weekly',   true ); ?>><?php esc_html_e( 'Weekly',  'wp_currencies' ); ?></option>
+				<option value="biweekly" <?php selected( $update_frequency, 'biweekly', true ); ?>><?php esc_html_e( 'Biweekly','wp_currencies' ); ?></option>
+				<option value="monthly"  <?php selected( $update_frequency, 'monthly',  true ); ?>><?php esc_html_e( 'Monthly', 'wp_currencies' ); ?></option>
 			</select>
 		</label>
 		<br>
 		<small>
-			<?php _e( 'Specify the frequency when to update currencies exchange rates', 'wp_currencies' ); ?>
+			<?php esc_html_e( 'Specify the frequency when to update currencies exchange rates', 'wp_currencies' ); ?>
 		</small>
 		<?php
 
@@ -151,7 +151,7 @@ class Settings {
 
 		?>
 		<label for="api_key">
-			<?php _e( 'Open Exchange Rates API key:', 'wp_currencies' ); ?>
+			<?php esc_html_e( 'Open Exchange Rates API key:', 'wp_currencies' ); ?>
 			<input type="password" id="api_key" name="wp_currencies_settings[api_key]" value="<?php echo $api_key; ?>" class="regular-text">
 		</label>
 		<br>
@@ -177,7 +177,7 @@ class Settings {
 					'openexchangerates.org link', 'wp_currencies' ),
 				'<a href="//openexchangerates.org" target="_blank">openexchangerates.org</a>' ); ?>
 			<br />
-			<?php _e( 'Please refer to plugin documentation for functions usage to help you creating with WordPress and WP Currencies.', 'wp_currencies' ); ?>
+			<?php esc_html_e( 'Please refer to plugin documentation for functions usage to help you creating with WordPress and WP Currencies.', 'wp_currencies' ); ?>
 		</p>
 		<?php
 	}
@@ -225,7 +225,6 @@ class Settings {
 			do_action( 'wp_currencies_rescheduled_update', time(), esc_attr( $interval ) );
 
 		}
-
 	}
 
 }

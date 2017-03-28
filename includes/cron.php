@@ -25,7 +25,7 @@ class Cron {
 	 * @since 1.4.0
 	 */
 	public function __construct() {
-		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ), 10, 1 ) ;
+		add_filter( 'cron_schedules',       array( $this, 'cron_schedules' ), 10, 1 ) ;
 		add_action( 'wp_currencies_update', array( __CLASS__, 'update_currencies' ) );
 	}
 
@@ -68,8 +68,8 @@ class Cron {
 	public function schedule_updates( $api_key = '', $interval = '' ) {
 
 		if ( empty( $api_key ) || empty(  $interval ) ) {
-			$option = get_option( 'wp_currencies_settings' );
-			$api_key = isset( $option['api_key'] ) ? $option['api_key'] : '';
+			$option   = get_option( 'wp_currencies_settings', array() );
+			$api_key  = isset( $option['api_key'] )         ? $option['api_key']         : '';
 			$interval = isset( $option['update_interval'] ) ? $option['update_interval'] : '';
 		}
 
@@ -98,15 +98,15 @@ class Cron {
 	public function cron_schedules( $schedules ) {
 		$schedules['weekly'] = array(
 			'interval' => 604800,
-			'display' => __( 'Once Weekly', 'wp_currencies' )
+			'display'  => esc_html__( 'Once Weekly', 'wp_currencies' )
 		);
 		$schedules['biweekly'] = array(
 			'interval' => 1209600,
-			'display' => __( 'Once Biweekly', 'wp_currencies' )
+			'display'  => esc_html__( 'Once Biweekly', 'wp_currencies' )
 		);
 		$schedules['monthly'] = array(
 			'interval' => 2419200,
-			'display' => __( 'Once Monthly', 'wp_currencies' )
+			'display'  => esc_html__( 'Once Monthly', 'wp_currencies' )
 		);
 		return $schedules;
 	}

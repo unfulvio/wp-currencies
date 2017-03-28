@@ -1,3 +1,6 @@
+### 1.4.7 (29 mar 2017)
+* PHP 7.1 compatibility fixes
+
 #### 1.4.6 (29 jun 2015)
 * Further improvements in handling wp cron and scheduled events hooks
 * Commented out 'DOING_CRON' check (might not work if using alternate cron or with some object caching)

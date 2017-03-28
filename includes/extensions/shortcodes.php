@@ -51,12 +51,11 @@ class Shortcodes {
 		), $atts );
 
 		// convert currency
-		$conversion = convert_currency( floatval( $args['amount'] ), strtoupper( $args['from'] ), strtoupper( $args['in'] ) );
+		$conversion = convert_currency( (float) $args['amount'], strtoupper( $args['from'] ), strtoupper( $args['in'] ) );
 		// round result
-		$rounding = intval( $args['round'] ) >= 0 ? intval( $args['round'] ) : 2;
-		$converted_amount = round( $conversion, $rounding );
+		$rounding   = (int) $args['round'] >= 0 ? (int) $args['round'] : 2;
 
-		return '<span class="currency converted-currency">' . $converted_amount . '</span>';
+		return '<span class="currency converted-currency">' . round( $conversion, $rounding ) . '</span>';
 	}
 
 	/**
@@ -75,11 +74,10 @@ class Shortcodes {
 			'currency' 	=> '',
 		), $atts );
 
-		// get currency data
+		// get currency data for symbol
 		$currency_data = get_currency( strtoupper( $args['currency'] ) );
-		$symbol = $currency_data['symbol'];
 
-		return '<span class"currency currency-symbol">' . $symbol . '</span>';
+		return '<span class"currency currency-symbol">' . $currency_data['symbol'] . '</span>';
 	}
 
 

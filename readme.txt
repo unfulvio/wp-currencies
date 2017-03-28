@@ -2,9 +2,9 @@
 Contributors: nekojira
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P64V9NTEYFKDL
 Tags: currency, currencies, exchange-rates, finance, ecommerce, woocommerce, wcml, acf, advanced-custom-fields
-Requires at least: 4.0.0
-Tested up to: 4.2.2
-Stable tag: 1.4.5
+Requires at least: 4.4.0
+Tested up to: 4.7.3
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

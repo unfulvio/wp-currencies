@@ -1,18 +1,18 @@
 <?php
 /**
  * Plugin Name: WP Currencies
- * Plugin URI:  https://github.com/nekojira/wp-currencies
+ * Plugin URI:  https://github.com/unfulvio/wp-currencies
  * Description: Currency data and updated currency exchange rates for WordPress.
- * Version:     1.4.6
+ * Version:     1.4.7
  * Author:      Fulvio Notarstefano
- * Author URI:  https://github.com/nekojira
+ * Author URI:  https://github.com/unfulvio
  * License:     GPLv2+
  * Text Domain: wp_currencies
  * Domain Path: /languages
  */
 
 /**
- * Copyright (c) 2015
+ * Copyright (c) 2014-2017
  * Fulvio Notarstefano (fulvio.notarstefano@gmail.com) and contributors.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -49,12 +49,12 @@ if ( version_compare( PHP_VERSION, '5.4.0', '<') ) {
 	return;
 }
 
-if ( ! class_exists( 'WP_Currencies') ) :
+if ( ! class_exists( 'WP_Currencies' ) ) :
 
 	// Useful global constants.
-	define( 'WP_CURRENCIES_VERSION', '1.4.0' );
+	define( 'WP_CURRENCIES_VERSION', '1.4.7' );
 	define( 'WP_CURRENCIES_URL',     plugin_dir_url( __FILE__ ) );
-	define( 'WP_CURRENCIES_PATH',    dirname( __FILE__ ) . '/' );
+	define( 'WP_CURRENCIES_PATH',    trailingslashit( __DIR__ ) );
 	define( 'WP_CURRENCIES_INC',     WP_CURRENCIES_PATH . 'includes/' );
 
 	/**
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WP_Currencies') ) :
 		 * @access public
 		 * @var WP_Currencies\Rates
 		 */
-		public $currencies = null;
+		public $currencies;
 
 		/**
 		 * Main WP_Currencies instance.
@@ -92,7 +92,7 @@ if ( ! class_exists( 'WP_Currencies') ) :
 		 * @return WP_Currencies
 		 */
 		public static function get_instance() {
-			if ( is_null( self::$_instance ) ) {
+			if ( null === self::$_instance ) {
 				self::$_instance = new self();
 			}
 			return self::$_instance;
@@ -250,7 +250,7 @@ else :
 	add_action( 'admin_notices',
 		function() {
 			echo '<div class="error"><p>'.
-			     sprintf( __( "Plugin conflict: %s has been declared already by another plugin or theme and WP Currencies cannot run properly. Try deactivating other plugins and try again.", 'wp_currencies' ), '`class WP_Currencies`' ) .
+			     sprintf( __( 'Plugin conflict: %s has been declared already by another plugin or theme and WP Currencies cannot run properly. Try deactivating other plugins and try again.', 'wp_currencies' ), '`class WP_Currencies`' ) .
 			     '</p></div>';
 			if ( isset( $_GET['activate'] ) ) {
 				unset( $_GET['activate'] );
@@ -300,7 +300,7 @@ if ( ! function_exists( 'wp_currencies' ) ) {
 	add_action( 'admin_notices',
 		function() {
 			echo '<div class="error"><p>'.
-			     sprintf( __( "Plugin conflict: %s has been declared already by another plugin or theme and WP Currencies cannot run properly. Try deactivating other plugins and try again.", 'wp_currencies' ), '`function wp_currencies()`' ) .
+			     sprintf( __( 'Plugin conflict: %s has been declared already by another plugin or theme and WP Currencies cannot run properly. Try deactivating other plugins and try again.', 'wp_currencies' ), '`function wp_currencies()`' ) .
 			     '</p></div>';
 			if ( isset( $_GET['activate'] ) ) {
 				unset( $_GET['activate'] );

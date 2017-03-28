@@ -82,8 +82,8 @@ class Rates {
 			if ( is_array( $new_rates ) && count( $new_rates ) > 100 ) {
 
 				// Check whether there are already values in db.
-				$old_rates  = $this->get_rates();
-				$action     = ! $old_rates || is_null( $old_rates ) ? 'insert' : 'update';
+				$old_rates = $this->get_rates();
+				$action    = ! $old_rates || null === $old_rates ? 'insert' : 'update';
 
 				global $wpdb;
 				$table = $wpdb->prefix . 'currencies';
@@ -97,7 +97,7 @@ class Rates {
 					if ( is_string( $currency_code ) && $rate_usd && isset( $data[ $currency_code ] ) ) {
 						// Sanitize.
 						$currency_code = strtoupper( substr( sanitize_key( $currency_code ), 0, 3 ) );
-						$rate_usd      = floatval( $rate_usd );
+						$rate_usd      = (float) $rate_usd;
 						// Currency data for current currency.
 						$currency_data = json_encode( (array) $data[ $currency_code ] );
 					} else {
@@ -106,11 +106,11 @@ class Rates {
 					}
 
 					// Update currencies with new values/rates.
-					if ( $action == 'update' ) {
+					if ( $action === 'update' ) {
 
 						// The currency list has changed.
 						// @todo Improve checks for new currencies while updating db.
-						if ( count( $old_rates ) != count( $new_rates ) ) {
+						if ( count( $old_rates ) !== count( $new_rates ) ) {
 							// Better start anew.
 							$wpdb->delete(
 								$table, array( 'currency_code' => $currency_code, )
@@ -136,7 +136,7 @@ class Rates {
 						}
 
 						// Insert currencies and their rates in db.
-					} elseif ( $action == 'insert' ) {
+					} elseif ( $action === 'insert' ) {
 						$wpdb->insert(
 							$table, array(
 								'currency_code' => $currency_code,
@@ -157,7 +157,7 @@ class Rates {
 
 			// @todo When update fails, perhaps we can read errors from wp_remote_get request.
 			trigger_error(
-				__( 'WP Currencies: there was a problem while trying to update currencies and exchange rates. Have you entered a valid API key? If yes, you might want to check your usage quota.', 'wp_currencies' ),
+				esc_html__( 'WP Currencies: there was a problem while trying to update currencies and exchange rates. Have you entered a valid API key? If yes, you might want to check your usage quota.', 'wp_currencies' ),
 				E_USER_WARNING
 			);
 
@@ -206,11 +206,8 @@ class Rates {
 						'thousands_sep' => ',',
 						'decimals_sep'  => '.'
 					);
-
 				}
-
 			}
-
 		}
 
 		// Format meta for each currency.
@@ -241,7 +238,7 @@ class Rates {
 		$rates = array();
 		if ( $results && is_array( $results ) ) {
 			foreach ( $results as $row ) {
-				$rates[strtoupper($row['currency_code'])] = floatval( $row['currency_rate'] );
+				$rates[strtoupper($row['currency_code'])] = (float) $row['currency_rate'];
 			}
 		}
 

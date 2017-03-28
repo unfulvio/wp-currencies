@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 function get_exchange_rates( $currency = 'USD' ) {
 
 	$rates = wp_currencies()->get_rates();
-	if ( is_array( $rates ) && $currency != 'USD' ) :
+	if ( is_array( $rates ) && $currency !== 'USD' ) :
 
 		if ( ! currency_exists( $currency ) ) {
 			trigger_error(
-				__( 'WP Currencies: Base currency to get rates for was not found in database.', 'wp_currencies' ),
+				esc_html__( 'WP Currencies: Base currency to get rates for was not found in database.', 'wp_currencies' ),
 				E_USER_WARNING
 			);
 			return null;
@@ -87,9 +87,9 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
 	// check first if rates exist
 	if ( $rates && is_array( $rates ) && count( $rates ) > 100 ) {
 
-		if ( ! currency_exists( $from ) OR ! currency_exists( $in ) ) {
+		if ( ! currency_exists( $from ) || ! currency_exists( $in ) ) {
 			trigger_error(
-				__( 'WP Currencies: Currency does not exist or was not found in database.', 'wp_currencies' ),
+				esc_html__( 'WP Currencies: Currency does not exist or was not found in database.', 'wp_currencies' ),
 				E_USER_WARNING
 			);
 			$error = true;
@@ -97,7 +97,7 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
 
 		if ( ! is_numeric( $amount ) ) {
 			trigger_error(
-				__( 'WP Currencies: Amount to convert must be a number.', 'wp_currencies' ),
+				esc_html__( 'WP Currencies: Amount to convert must be a number.', 'wp_currencies' ),
 				E_USER_WARNING
 			);
 			$error = true;
@@ -106,13 +106,13 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
 		if ( ! $error === true ) {
 			$from   = strtoupper( $from );
 			$in     = strtoupper( $in );
-			$result = $rates[ $from ] && $rates[ $in ] ? (float) $amount * (float) $rates[ $in ] / (float) $rates[ $from ] : floatval( $amount );
+			$result = $rates[ $from ] && $rates[ $in ] ? (float) $amount * (float) $rates[ $in ] / (float) $rates[ $from ] : (float) $amount;
 		}
 
 	} else {
 
 		trigger_error(
-			__( 'WP Currencies: There was a problem fetching currency data from database. Is your API key valid?', 'wp_currencies' ),
+			esc_html__( 'WP Currencies: There was a problem fetching currency data from database. Is your API key valid?', 'wp_currencies' ),
 			E_USER_WARNING
 		);
 
@@ -132,10 +132,11 @@ function convert_currency( $amount = 1, $from = 'USD', $in = 'EUR' ) {
  * @return float|int
  */
 function get_exchange_rate( $currency, $other_currency ) {
-	$currency = strtoupper( $currency );
+
+	$currency       = strtoupper( $currency );
 	$other_currency = strtoupper( $other_currency );
-	$rate = $currency == $other_currency ? 1 : convert_currency( 1, $currency, $other_currency );
-	return $rate;
+
+	return $currency === $other_currency ? 1 : convert_currency( 1, $currency, $other_currency );
 }
 
 /**
@@ -179,9 +180,9 @@ add_action( 'wp_ajax_get_currencies', 'get_currencies_json' );
  */
 function get_currency( $currency_code = 'USD' ) {
 
-	if ( ! is_string( $currency_code ) OR strlen( $currency_code ) != 3 ) {
+	if ( ! is_string( $currency_code ) || strlen( $currency_code ) !== 3 ) {
 		trigger_error(
-			__( 'WP Currencies: you need to pass a valid currency code for argument and it must be a string of three characters long', 'wp_currencies' ),
+			esc_html__( 'WP Currencies: you need to pass a valid currency code for argument and it must be a string of three characters long', 'wp_currencies' ),
 			E_USER_WARNING
 		);
 		return null;
@@ -191,7 +192,7 @@ function get_currency( $currency_code = 'USD' ) {
 
 	if ( ! array_key_exists( strtoupper( $currency_code ), $currency_data ) ) {
 		trigger_error(
-			__( 'WP Currencies: the specified currency could not be found', 'wp_currencies' ),
+			esc_html__( 'WP Currencies: the specified currency could not be found', 'wp_currencies' ),
 			E_USER_WARNING
 		);
 		return null;
@@ -219,19 +220,19 @@ function format_currency( $amount, $currency_code, $currency_symbol = true ) {
 
 	$currency = get_currency( strtoupper( $currency_code ) );
 
-	if ( is_null( $currency ) ){
+	if ( null === $currency ){
 		return '';
 	}
 
 	if ( ! $currency ) {
-		$symbol = $currency_symbol == true ? strtoupper( $currency_code ) : '';
+		$symbol = $currency_symbol === true ? strtoupper( $currency_code ) : '';
 		$result = $amount . ' ' . $symbol;
 	} else {
 		$formatted = number_format( $amount, $currency['decimals'], $currency['decimals_sep'], $currency['thousands_sep'] );
-		if ( $currency_symbol == false ) {
+		if ( $currency_symbol === false ) {
 			$result = $formatted;
 		} else {
-			$result = $currency['position'] == 'before' ? $currency['symbol'] . ' ' . $formatted : $formatted . ' ' . $currency['symbol'];
+			$result = $currency['position'] === 'before' ? $currency['symbol'] . ' ' . $formatted : $formatted . ' ' . $currency['symbol'];
 		}
 	}
 
@@ -251,13 +252,13 @@ function format_currency( $amount, $currency_code, $currency_symbol = true ) {
 function currency_exists( $currency_code ) {
 
 	$currencies = get_currencies();
+	$codes      = array();
 
-	$codes = '';
 	if ( $currencies && is_array( $currencies ) ) {
 		foreach ( $currencies as $key => $value ) {
 			$codes[] = $key;
 		}
 	}
 
-	return $codes && is_array( $codes ) ? in_array( strtoupper( $currency_code ), (array) $codes ) : null;
+	return $codes && is_array( $codes ) ? in_array( strtoupper( $currency_code ), (array) $codes, false ) : null;
 }

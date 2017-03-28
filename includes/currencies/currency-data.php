@@ -8,12 +8,12 @@
 /**
  * Helper function to format currency data.
  *
- * @todo Use gettext for $currency_data['name'].
- * @todo Update currency symbols, symbol postions and separators.
+ * TODO Use gettext for $currency_data['name'].
+ * TODO Update currency symbols, symbol positions and separators.
  *
  * @since 1.4.0
  *
- * @param  $currencies
+ * @param  string|array $currencies
  *
  * @return array
  */
@@ -29,7 +29,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 				continue;
 			}
 
-			if ( $currency_code == 'AUD' ) {
+			if ( $currency_code === 'AUD' ) {
 
 				// Australian Dollar
 				$data[$currency_code] = array(
@@ -41,7 +41,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'BRL' ) {
+			} elseif ( $currency_code === 'BRL' ) {
 
 				// Brazilian Real
 				$data[$currency_code] = array(
@@ -53,7 +53,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep' => ',',
 				);
 
-			} elseif ( $currency_code == 'BND' ) {
+			} elseif ( $currency_code === 'BND' ) {
 
 				// Brunei Dollar
 				$data[$currency_code] = array(
@@ -65,7 +65,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'BTC' || $currency_code == 'XBT') {
+			} elseif ( $currency_code === 'BTC' || $currency_code === 'XBT') {
 
 				// Bitcoin
 				$data[$currency_code] = array(
@@ -77,7 +77,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'CAD' ) {
+			} elseif ( $currency_code === 'CAD' ) {
 
 				// Canadian Dollar
 				$data[$currency_code] = array(
@@ -89,7 +89,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'CHF' ) {
+			} elseif ( $currency_code === 'CHF' ) {
 
 				$data[$currency_code] = array(
 					'name'          => $currency_data['name'],
@@ -100,7 +100,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'CNY' ) {
+			} elseif ( $currency_code === 'CNY' ) {
 
 				// Chinese Renmimbi (Yuan)
 				$data[$currency_code] = array(
@@ -112,7 +112,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'DKK' ) {
+			} elseif ( $currency_code === 'DKK' ) {
 
 				// Danish Crown
 				$data[$currency_code] = array(
@@ -124,7 +124,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'EUR' ) {
+			} elseif ( $currency_code === 'EUR' ) {
 
 				// Euro
 				$data[$currency_code] = array(
@@ -136,7 +136,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'GBP' ) {
+			} elseif ( $currency_code === 'GBP' ) {
 
 				// British Pound
 				$data[$currency_code] = array(
@@ -148,7 +148,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'JPY' ) {
+			} elseif ( $currency_code === 'JPY' ) {
 
 				// Japanese Yen
 				$data[$currency_code] = array(
@@ -160,7 +160,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'LAK' ) {
+			} elseif ( $currency_code === 'LAK' ) {
 
 				// Laos Kip
 				$data[$currency_code] = array(
@@ -172,7 +172,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'HKD' ) {
+			} elseif ( $currency_code === 'HKD' ) {
 
 				// Hong Kong Dollar
 				$data[$currency_code] = array(
@@ -184,7 +184,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'IDR' ) {
+			} elseif ( $currency_code === 'IDR' ) {
 
 				// Indonesian Rupee
 				$data[$currency_code] = array(
@@ -196,7 +196,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'MMK' ) {
+			} elseif ( $currency_code === 'MMK' ) {
 
 				// Burmese Kyat
 				$data[$currency_code] = array(
@@ -208,7 +208,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'MYR' ) {
+			} elseif ( $currency_code === 'MYR' ) {
 
 				// Malaysian Ringgit
 				$data[$currency_code] = array(
@@ -220,7 +220,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'MXN' ) {
+			} elseif ( $currency_code === 'MXN' ) {
 
 				// Mexican Peso
 				$data[$currency_code] = array(
@@ -232,7 +232,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'NZD' ) {
+			} elseif ( $currency_code === 'NZD' ) {
 
 				// New Zealand Dollar
 				$data[$currency_code] = array(
@@ -244,7 +244,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'NOK' ) {
+			} elseif ( $currency_code === 'NOK' ) {
 
 				// Norwegian Crown
 				$data[$currency_code] = array(
@@ -256,7 +256,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'PLN' ) {
+			} elseif ( $currency_code === 'PLN' ) {
 
 				// Polish złoty
 				$data[$currency_code] = array(
@@ -268,7 +268,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'PHP' ) {
+			} elseif ( $currency_code === 'PHP' ) {
 
 				// Philippines Peso
 				$data[$currency_code] = array(
@@ -280,7 +280,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'RON' ) {
+			} elseif ( $currency_code === 'RON' ) {
 
 				// Romanian Leu
 				$data[$currency_code] = array(
@@ -292,7 +292,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'RUB' ) {
+			} elseif ( $currency_code === 'RUB' ) {
 
 				// Russian Ruble
 				$data[$currency_code] = array(
@@ -304,7 +304,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'SAR' ) {
+			} elseif ( $currency_code === 'SAR' ) {
 
 				// Saudi Ryal
 				$data[$currency_code] = array(
@@ -316,7 +316,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'SGD' ) {
+			} elseif ( $currency_code === 'SGD' ) {
 
 				// Singapore Dollar
 				$data[$currency_code] = array(
@@ -328,7 +328,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'SEK' ) {
+			} elseif ( $currency_code === 'SEK' ) {
 
 				// Swedish Crown
 				$data[$currency_code] = array(
@@ -340,7 +340,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => ',',
 				);
 
-			} elseif ( $currency_code == 'THB' ) {
+			} elseif ( $currency_code === 'THB' ) {
 
 				// Thai Baht
 				$data[$currency_code] = array(
@@ -352,7 +352,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'TRY' ) {
+			} elseif ( $currency_code === 'TRY' ) {
 
 				// Turkish Lira
 				$data[$currency_code] = array(
@@ -364,7 +364,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'TWD' ) {
+			} elseif ( $currency_code === 'TWD' ) {
 
 				// Taiwan New Dollar
 				$data[$currency_code] = array(
@@ -376,7 +376,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'USD' ) {
+			} elseif ( $currency_code === 'USD' ) {
 
 				// US Dollar
 				$data[$currency_code] = array(
@@ -388,7 +388,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'VND' ) {
+			} elseif ( $currency_code === 'VND' ) {
 
 				// Vietnamese Dong
 				$data[$currency_code] = array(
@@ -400,7 +400,7 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 					'decimals_sep'  => '.',
 				);
 
-			} elseif ( $currency_code == 'WON' ) {
+			} elseif ( $currency_code === 'WON' ) {
 
 				// Korean Won
 				$data[$currency_code] = array(
@@ -431,5 +431,4 @@ function wp_currencies_format_currency_data( $currencies = '' ) {
 	endif;
 
 	return (array) $data;
-
 }
