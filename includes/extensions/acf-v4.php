@@ -210,7 +210,7 @@ class WP_Currency_ACF_v4 extends acf_field {
 	 */
 	function format_value_for_api( $value, $post_id, $field ) {
 
-		$currency = '';
+		$currency = array();
 
 		if ( $value == 'null' || $value == '' || $value == false ) :
 			$currency = false;
