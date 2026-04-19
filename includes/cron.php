@@ -25,8 +25,8 @@ class Cron {
 	 * @since 1.4.0
 	 */
 	public function __construct() {
-		add_filter( 'cron_schedules',       array( $this, 'cron_schedules' ), 10, 1 ) ;
-		add_action( 'wp_currencies_update', array( __CLASS__, 'update_currencies' ) );
+		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ), 10, 1 ) ;
+		add_action( 'wp_currencies_update', array( $this, 'update_currencies' ) );
 	}
 
 	/**

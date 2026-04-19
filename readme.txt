@@ -3,8 +3,8 @@ Contributors: nekojira
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P64V9NTEYFKDL
 Tags: currency, currencies, exchange-rates, finance, ecommerce, woocommerce, wcml, acf, advanced-custom-fields
 Requires at least: 4.4.0
-Tested up to: 4.7.3
-Stable tag: 1.4.7
+Tested up to: 6.5.5
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,11 @@ This could be related to `cron` not working properly in your host. Please refer 
 
 
 == Changelog ==
+
+= 1.4.8 (14 may 2025)=
+* Update for WordPress 6.5
+* Added field support for Advanced Custom Fields 6.x
+* Remove ACF v4 and 5
 
 = 1.4.7 =
 * PHP 7.1 compatibility fixes

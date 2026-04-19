@@ -3,7 +3,7 @@
  * Plugin Name: WP Currencies
  * Plugin URI:  https://github.com/unfulvio/wp-currencies
  * Description: Currency data and updated currency exchange rates for WordPress.
- * Version:     1.4.7
+ * Version:     1.4.8
  * Author:      Fulvio Notarstefano
  * Author URI:  https://github.com/unfulvio
  * License:     GPLv2+
@@ -12,7 +12,7 @@
  */
 
 /**
- * Copyright (c) 2014-2017
+ * Copyright (c) 2014-2025
  * Fulvio Notarstefano (fulvio.notarstefano@gmail.com) and contributors.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -52,7 +52,7 @@ if ( version_compare( PHP_VERSION, '5.4.0', '<') ) {
 if ( ! class_exists( 'WP_Currencies' ) ) :
 
 	// Useful global constants.
-	define( 'WP_CURRENCIES_VERSION', '1.4.7' );
+	define( 'WP_CURRENCIES_VERSION', '1.4.8' );
 	define( 'WP_CURRENCIES_URL',     plugin_dir_url( __FILE__ ) );
 	define( 'WP_CURRENCIES_PATH',    trailingslashit( __DIR__ ) );
 	define( 'WP_CURRENCIES_INC',     WP_CURRENCIES_PATH . 'includes/' );
@@ -165,13 +165,9 @@ if ( ! class_exists( 'WP_Currencies' ) ) :
 			// Advanced Custom Fields (ACF) support.
 			$enable_acf = apply_filters( 'wp_currencies_enable_acf_support', true );
 			if ( $enable_acf === true ) {
-				// Advanced Custom Fields "Currency" Field (ACF v4.x+).
-				add_action( 'acf/register_fields', function () {
-					include_once WP_CURRENCIES_INC . 'extensions/acf-v4.php';
-				} );
-				// Advanced Custom Fields "Currency" Field (ACF v5.x+).
+				// Advanced Custom Fields "Currency" Field (ACF v6.x+).
 				add_action( 'acf/include_field_types', function () {
-					include_once WP_CURRENCIES_INC . 'extensions/acf-v5.php';
+					include_once WP_CURRENCIES_INC . 'extensions/acf-v6.php';
 				} );
 			}
 

@@ -1,3 +1,8 @@
+### 1.4.8 (14 may 2025)
+* Update for WordPress 6.5
+* Added field support for Advanced Custom Fields 6.x
+* Remove ACF v4 and 5
+
 ### 1.4.7 (29 mar 2017)
 * PHP 7.1 compatibility fixes
 
